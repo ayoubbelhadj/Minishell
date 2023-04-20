@@ -6,7 +6,7 @@
 #    By: aoudija <aoudija@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/17 22:42:33 by aoudija           #+#    #+#              #
-#    Updated: 2023/04/19 08:36:09 by aoudija          ###   ########.fr        #
+#    Updated: 2023/04/20 20:05:52 by aoudija          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,14 @@ CC = cc
 
 CFLAGS = -Wall -Wextra -Werror
 
+
+LFLAG = /Users/aoudija/.brew/opt/readline
+
 DEPS = minishell.h
+
+LIBB = -L ${LFLAG}/lib -lreadline
+
+INC = -I includes -I ${LFLAG}/include
 
 FILES = main.c builtins.c libft/ft_isdigit.c libft/ft_memset.c \
 		libft/ft_strjoin.c libft/ft_strtrim.c libft/ft_isprint.c \
@@ -32,12 +39,12 @@ FILES = main.c builtins.c libft/ft_isdigit.c libft/ft_memset.c \
 OBG = $(FILES:.c=.o)
 
 %.o : %.c $(DEPS)
-	$(CC) $(CFLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) $(INC) -c $< -o $@ 
 
 all : $(NAME)
 
 $(NAME) : $(OBG)
-	$(CC) $(CFLAGS) $(OBG) -o $(NAME)  -lreadline
+	$(CC) $(CFLAGS) $(INC) $(OBG) -o $(NAME) $(LIBB)
 
 clean:
 	rm -f $(OBG)
