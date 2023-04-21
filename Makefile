@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: aoudija <aoudija@student.42.fr>            +#+  +:+       +#+         #
+#    By: abelhadj <abelhadj@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/17 22:42:33 by aoudija           #+#    #+#              #
-#    Updated: 2023/04/17 23:11:25 by aoudija          ###   ########.fr        #
+#    Updated: 2023/04/21 05:58:26 by abelhadj         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,24 +14,46 @@ NAME = minishell
 
 CC = cc
 
-CFLAGS = -Wall -Wextra -Werror
+FLAGS = -Wall -Wextra -Werror
 
 DEPS = minishell.h
 
-FILES = main.c builtins.c ft_split.c ft_strlcpy.c ft_strtrim.c
+LFLAGS = -L ~/.brew/Cellar/readline/8.2.1/lib
+IFLAGS = -I ~/.brew/Cellar/readline/8.2.1/include/readline
 
-OBG = $(FILES:.c=.o)
+LIBFT = $(addprefix  libft/, ft_isdigit ft_memset  ft_isprint ft_putendl_fd ft_itoa ft_strmapi \
+		ft_bzero ft_putchar_fd  ft_atoi ft_strncmp ft_memchr ft_striteri \
+		ft_tolower  ft_strlen ft_putstr_fd ft_strlcat ft_calloc ft_strtrim \
+		ft_toupper ft_isalnum ft_strrchr  ft_strlcpy ft_memcmp ft_split \
+		ft_isalpha ft_memcpy ft_putnbr_fd ft_strnstr ft_strjoin \
+		ft_isascii ft_memmove ft_strchr ft_strdup ft_substr \
+		ft_lstiter ft_lstsize ft_lstclear ft_lstdelone ft_lstadd_back \
+		ft_lstnew ft_lstadd_front ft_lstmap ft_lstlast\
+		get_next_line_utils get_next_line)
 
-%.o : %.c $(DEPS)
-	$(CC) $(CFLAGS) -c $<
+FILES = main builtins $(LIBFT)
 
-all : $(NAME)
+SRC		= $(FILES:=.c)
+OBJ		= $(FILES:=.o)
+HEADER  = include/minishell.h
+INCLUDES=  -I include 
 
-$(NAME) : $(OBG)
-	$(CC) $(CFLAGS) $(OBG) -o $(NAME)  -lreadline
+
+
+all: $(NAME) 
+
+$(NAME): $(OBJ) $(HEADER)
+	@printf "$(CURSIVE)$(GRAY)	- Compiling $(NAME)... $(RESET)\n"
+	@$(CC) $(OBJ) $(LFLAGS) $(IFLAGS) $(INCLUDES) -o $(NAME) -lreadline
+	@printf "$(GREEN)    - Executable ready.\n$(RESET)"
+
+
+	
+%.o: %.c $(HEADER)
+	@$(CC) $(FLAGS) -c $< -o $@ 
 
 clean:
-	rm -f $(OBG)
+	rm -f $(OBJ)
 
 fclean: clean
 	rm -f $(NAME)
