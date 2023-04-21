@@ -6,7 +6,7 @@
 /*   By: aoudija <aoudija@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 22:02:39 by aoudija           #+#    #+#             */
-/*   Updated: 2023/04/21 01:03:21 by aoudija          ###   ########.fr       */
+/*   Updated: 2023/04/21 04:52:30 by aoudija          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ int	main()
 {
 	char	*cmd;
 	char	**temp;
+	char *args[2];
+	int		pid;
 
 	while(1)
 	{
@@ -33,13 +35,21 @@ int	main()
 		temp = ft_split(cmd, ' ');
 		if (cmd && temp[0])
 		{
-			parsing();
-			execute(data);
-			if (!ft_strncmp(cmd, "exit", 4))
+			// parse();
+			// execute();
+			if (!ft_strncmp(cmd, "env", 3))
+			{
+				pid = fork();
+				if (pid == 0)
+				{
+					args[0] = "env";
+					execv("/usr/bin/env", args);
+					break ;
+				}
+			}
+			else if (!ft_strncmp(cmd, "exit", 4))
 				break;
 			add_history(cmd);
-			if (!ft_strncmp(temp[0], "echo", 5))
-				ft_echo(cmd);
 		}
 		free(cmd);
 		ft_free(temp);

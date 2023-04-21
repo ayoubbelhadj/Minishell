@@ -71,6 +71,6 @@ typedef struct s_data
 	t_list	*cmd;
 	char	**cmd_tab;
 } t_data;
-t_data	data;
+t_data	*data;
 void	*ft_free(char **table);
 #endif
