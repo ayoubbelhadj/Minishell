@@ -6,7 +6,7 @@
 /*   By: aoudija <aoudija@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/20 23:52:49 by aoudija           #+#    #+#             */
-/*   Updated: 2023/04/21 04:24:20 by aoudija          ###   ########.fr       */
+/*   Updated: 2023/04/21 06:09:40 by aoudija          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,17 @@
 
 // void	execute(void)
 // {
+// 	int	pid;
+
 // 	if (!ft_strncmp(data->cmd_tab[0], "echo", 5))
-//         ft_echo(data->cmd_tab[1]);
+// 		ft_echo(data->cmd_tab[1]);
+// 	else if (!ft_strncmp(data->cmd_tab[0], "env", 3))
+// 	{
+// 		pid = fork();
+// 		if (pid == 0)
+// 		{
+// 			args[0] = "env";
+// 			execv("/usr/bin/env", args);
+// 		}
+// 	}
 // }

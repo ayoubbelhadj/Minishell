@@ -65,6 +65,8 @@ void	ft_lstclear(t_list **lst, void (*del)(void*));
 void	ft_lstiter(t_list *lst, void (*f)(void *));
 ////////////////////////////////////////////
 ///////////////////////////////////////////
+
+
 void	ft_echo(char *cmd);
 typedef struct s_data
 {
@@ -73,4 +75,11 @@ typedef struct s_data
 } t_data;
 t_data	*data;
 void	*ft_free(char **table);
+
+
+
+
+
+
+
 #endif

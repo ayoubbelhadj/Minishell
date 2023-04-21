@@ -6,7 +6,7 @@
 /*   By: aoudija <aoudija@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 22:02:39 by aoudija           #+#    #+#             */
-/*   Updated: 2023/04/21 04:52:30 by aoudija          ###   ########.fr       */
+/*   Updated: 2023/04/21 06:37:32 by aoudija          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,16 @@ void	sigint_handler(int signum)
 	signum++;
 }
 
-int	main()
+int	main(int ac, char **av, char **env)
 {
 	char	*cmd;
 	char	**temp;
-	char *args[2];
+	char **args;
 	int		pid;
 
+	(void)ac;
+	(void)av;
+	args = malloc(sizeof(char *) * 2);
 	while(1)
 	{
 		signal(SIGINT, sigint_handler);
@@ -37,15 +40,18 @@ int	main()
 		{
 			// parse();
 			// execute();
-			if (!ft_strncmp(cmd, "env", 3))
+			if (!ft_strncmp(cmd, "ls", 2))
 			{
 				pid = fork();
 				if (pid == 0)
 				{
-					args[0] = "env";
-					execv("/usr/bin/env", args);
-					break ;
+					args[0] = ft_strdup("ls");
+					args[1] = NULL;
+					execve("/bin/ls", args, env);
+					exit(0);
 				}
+				else
+					wait(&pid);
 			}
 			else if (!ft_strncmp(cmd, "exit", 4))
 				break;
