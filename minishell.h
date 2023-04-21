@@ -68,8 +68,8 @@ void	ft_lstiter(t_list *lst, void (*f)(void *));
 void	ft_echo(char *cmd);
 typedef struct s_data
 {
-    int 	i;
-	char	*cmd;
+	t_list	*cmd;
+	char	**cmd_tab;
 } t_data;
 t_data	data;
 void	*ft_free(char **table);

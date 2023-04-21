@@ -6,7 +6,7 @@
 /*   By: aoudija <aoudija@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 22:02:39 by aoudija           #+#    #+#             */
-/*   Updated: 2023/04/20 23:47:11 by aoudija          ###   ########.fr       */
+/*   Updated: 2023/04/21 01:03:21 by aoudija          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ int	main()
 	char	*cmd;
 	char	**temp;
 
-	data.i = 0;
 	while(1)
 	{
 		signal(SIGINT, sigint_handler);
@@ -34,6 +33,8 @@ int	main()
 		temp = ft_split(cmd, ' ');
 		if (cmd && temp[0])
 		{
+			parsing();
+			execute(data);
 			if (!ft_strncmp(cmd, "exit", 4))
 				break;
 			add_history(cmd);
