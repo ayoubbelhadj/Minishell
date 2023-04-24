@@ -6,7 +6,7 @@
 /*   By: aoudija <aoudija@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/20 23:52:49 by aoudija           #+#    #+#             */
-/*   Updated: 2023/04/24 07:28:52 by aoudija          ###   ########.fr       */
+/*   Updated: 2023/04/24 13:25:33 by aoudija          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,17 +18,17 @@
 // 	int		size;
 // 	int		i;
 
-// 	size = ft_lstsize(data->cmd);
-// 	data->cmd_tab = malloc(sizeof(char *) * size + 1);
-// 	temp = data->cmd;
+// 	size = ft_lstsize(g_data->cmd);
+// 	g_data->cmd_tab = malloc(sizeof(char *) * size + 1);
+// 	temp = g_data->cmd;
 	// while (temp)
 	// {
 		// data.cmd_tab[i] = malloc(temp->size);
-// 		data->cmd_tab[i] = temp->content;
-// 		temp = data->cmd->next;
+// 		g_data->cmd_tab[i] = temp->content;
+// 		temp = g_data->cmd->next;
 // 		i++;
 // 	}
-// 	data->cmd_tab[i] = 0;
+// 	g_data->cmd_tab[i] = 0;
 // }
 
 void	execute(char *cmd)
@@ -37,6 +37,8 @@ void	execute(char *cmd)
 		ft_echo(cmd);
 	else if (!ft_strncmp(cmd, "env", 3))
 		ft_env();
-	if (!ft_strncmp(cmd, "export", 6))
+	else if (!ft_strncmp(cmd, "export", 6))
 		ft_export(cmd);
+	else if (!ft_strncmp(cmd, "unset", 5))
+		ft_unset(cmd);
 }
