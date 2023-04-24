@@ -6,7 +6,7 @@
 /*   By: aoudija <aoudija@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 06:26:45 by abelhadj          #+#    #+#             */
-/*   Updated: 2023/04/23 12:43:41 by aoudija          ###   ########.fr       */
+/*   Updated: 2023/04/24 06:43:59 by aoudija          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,13 @@
 void	ft_echo(char *cmd);
 typedef struct s_data
 {
+	char	**env;
 	t_list	*cmd;
 	char	**cmd_tab;
-	char	**env;
 } t_data;
 t_data	*data;
 void	*ft_free(char **table);
+char	**ft_strdupdup(char **tab);
 void	execute(char *cmd);
 
 #endif
