@@ -6,7 +6,7 @@
 #    By: aoudija <aoudija@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/17 22:42:33 by aoudija           #+#    #+#              #
-#    Updated: 2023/04/20 20:05:52 by aoudija          ###   ########.fr        #
+#    Updated: 2023/04/23 12:36:54 by aoudija          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,40 +14,46 @@ NAME = minishell
 
 CC = cc
 
-CFLAGS = -Wall -Wextra -Werror
-
-
-LFLAG = /Users/aoudija/.brew/opt/readline
+FLAGS = -Wall -Wextra -Werror
 
 DEPS = minishell.h
 
-LIBB = -L ${LFLAG}/lib -lreadline
+LFLAGS = -L ~/.brew/opt/readline/lib
+IFLAGS = -I ~/.brew/opt/readline/include
 
-INC = -I includes -I ${LFLAG}/include
+LIBFT = $(addprefix  libft/, ft_isdigit ft_memset  ft_isprint ft_putendl_fd ft_itoa ft_strmapi \
+		ft_bzero ft_putchar_fd  ft_atoi ft_strncmp ft_memchr ft_striteri \
+		ft_tolower  ft_strlen ft_putstr_fd ft_strlcat ft_calloc ft_strtrim \
+		ft_toupper ft_isalnum ft_strrchr  ft_strlcpy ft_memcmp ft_split \
+		ft_isalpha ft_memcpy ft_putnbr_fd ft_strnstr ft_strjoin \
+		ft_isascii ft_memmove ft_strchr ft_strdup ft_substr \
+		ft_lstiter ft_lstsize ft_lstclear ft_lstdelone ft_lstadd_back \
+		ft_lstnew ft_lstadd_front ft_strdupdup two_d_strjoin ft_lstmap freed_strjoin ft_free ft_lstlast\
+		get_next_line_utils get_next_line)
 
-FILES = main.c builtins.c libft/ft_isdigit.c libft/ft_memset.c \
-		libft/ft_strjoin.c libft/ft_strtrim.c libft/ft_isprint.c \
-		libft/ft_strlcat.c libft/ft_atoi.c libft/ft_substr.c libft/ft_putchar_fd.c \
-		libft/ft_strlcpy.c libft/ft_tolower.c libft/ft_bzero.c libft/ft_strlen.c libft/ft_putstr_fd.c \
-		libft/ft_toupper.c libft/ft_calloc.c libft/ft_memchr.c libft/ft_isalnum.c libft/ft_striteri.c \
-		libft/ft_putendl_fd.c \
-		libft/ft_memcmp.c libft/ft_split.c libft/ft_strncmp.c libft/ft_putnbr_fd.c \
-		libft/ft_isalpha.c libft/ft_memcpy.c libft/ft_strchr.c \
-		libft/ft_strnstr.c libft/ft_isascii.c libft/ft_memmove.c libft/ft_strdup.c \
-		libft/ft_strrchr.c libft/ft_itoa.c libft/ft_strmapi.c \
+FILES = main builtins execute $(LIBFT)
 
-OBG = $(FILES:.c=.o)
+SRC		= $(FILES:=.c)
+OBJ		= $(FILES:=.o)
+HEADER  = include/minishell.h
+INCLUDES=  -I include
 
-%.o : %.c $(DEPS)
-	$(CC) $(CFLAGS) $(INC) -c $< -o $@ 
 
-all : $(NAME)
 
-$(NAME) : $(OBG)
-	$(CC) $(CFLAGS) $(INC) $(OBG) -o $(NAME) $(LIBB)
+all: $(NAME) 
+
+$(NAME): $(OBJ) $(HEADER)
+	@printf "$(CURSIVE)$(GRAY)	- Compiling $(NAME)... $(RESET)\n"
+	@$(CC) $(OBJ) $(IFLAGS) $(INCLUDES) -o $(NAME) $(LFLAGS) -lreadline
+	@printf "$(GREEN)    - Executable ready.\n$(RESET)"
+
+
+	
+%.o: %.c $(HEADER)
+	@$(CC) $(FLAGS) $(IFLAGS) -c $< -o $@
 
 clean:
-	rm -f $(OBG)
+	rm -f $(OBJ)
 
 fclean: clean
 	rm -f $(NAME)

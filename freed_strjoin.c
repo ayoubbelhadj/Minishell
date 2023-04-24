@@ -1,24 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtins.c                                         :+:      :+:    :+:   */
+/*   freed_strjoin.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aoudija <aoudija@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/17 22:02:28 by aoudija           #+#    #+#             */
-/*   Updated: 2023/04/21 06:52:37 by aoudija          ###   ########.fr       */
+/*   Created: 2023/04/23 00:09:17 by aoudija           #+#    #+#             */
+/*   Updated: 2023/04/23 00:14:49 by aoudija          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "include/minishell.h"
+#include "libft.h"
 
-void	ft_echo(char *cmd)
+char	*ft_strjoin_frees1(char *s1, char *s2)
 {
-	size_t	len;
-	char	*s;
+	char	*str;
+	int		len;
 
-	len = ft_strlen(cmd) - 5;
-	s =  ft_substr(cmd, 5,len);
-	printf("%s", s);
-	free(s);
+	if (!s1 || !s2)
+		return (0);
+	len = ft_strlen(s1) + ft_strlen(s2);
+	str = (char *)malloc(len + 1);
+	if (!str)
+		return (NULL);
+	ft_memcpy(str, s1, ft_strlen(s1));
+	ft_memcpy(str + ft_strlen(s1), s2, ft_strlen(s2));
+	str[len] = '\0';
+    free(s1);
+	return (str);
 }

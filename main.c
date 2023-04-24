@@ -6,11 +6,11 @@
 /*   By: aoudija <aoudija@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 22:02:39 by aoudija           #+#    #+#             */
-/*   Updated: 2023/04/21 06:37:32 by aoudija          ###   ########.fr       */
+/*   Updated: 2023/04/24 05:22:18 by aoudija          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "include/minishell.h"
 
 void	sigint_handler(int signum)
 {
@@ -21,44 +21,43 @@ void	sigint_handler(int signum)
 	signum++;
 }
 
-int	main(int ac, char **av, char **env)
+int	main(int ac, char **av, char **envv)
 {
 	char	*cmd;
-	char	**temp;
-	char **args;
-	int		pid;
 
 	(void)ac;
 	(void)av;
-	args = malloc(sizeof(char *) * 2);
+	(void)envv;
+	data = malloc(sizeof(t_data *));
+	data->env = ft_strdupdup(envv);
+	printf(":( %p\n", data->env[0]);
+	printf(":( -> %s\n", data->env[0]);
 	while(1)
 	{
 		signal(SIGINT, sigint_handler);
 		cmd = readline("\x1B[34mmy_shell>\033[0m");
-		temp = ft_split(cmd, ' ');
-		if (cmd && temp[0])
+		if (cmd[0])
 		{
-			// parse();
-			// execute();
-			if (!ft_strncmp(cmd, "ls", 2))
-			{
-				pid = fork();
-				if (pid == 0)
-				{
-					args[0] = ft_strdup("ls");
-					args[1] = NULL;
-					execve("/bin/ls", args, env);
-					exit(0);
-				}
-				else
-					wait(&pid);
-			}
-			else if (!ft_strncmp(cmd, "exit", 4))
+			execute(cmd);
+			if (!ft_strncmp(cmd, "exit", 4))
 				break;
 			add_history(cmd);
+			free(cmd);
 		}
-		free(cmd);
-		ft_free(temp);
 	}
 	return 0;
 }
+
+// if (!ft_strncmp(cmd, "ls", 2))
+// {
+// 	pid = fork();
+// 	if (pid == 0)
+// 	{
+// 		args[0] = ft_strdup("ls");
+// 		args[1] = NULL;
+// 		execve("/bin/ls", args, env);
+// 		exit(0);
+// 	}
+// 	else
+// 		wait(&pid);
+// }
