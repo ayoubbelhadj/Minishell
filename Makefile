@@ -6,7 +6,7 @@
 #    By: aoudija <aoudija@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/17 22:42:33 by aoudija           #+#    #+#              #
-#    Updated: 2023/04/24 06:54:52 by aoudija          ###   ########.fr        #
+#    Updated: 2023/04/24 07:19:44 by aoudija          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,7 @@ IFLAGS = -I ~/.brew/opt/readline/include
 LIBFT = $(addprefix  libft/, ft_isdigit ft_memset  ft_isprint ft_putendl_fd ft_itoa ft_strmapi \
 		ft_bzero ft_putchar_fd  ft_atoi ft_strncmp ft_memchr ft_striteri \
 		ft_tolower  ft_strlen ft_putstr_fd ft_strlcat ft_calloc ft_strtrim \
-		ft_toupper ft_isalnum ft_strrchr  ft_strlcpy ft_memcmp ft_split \
+		ft_toupper ft_isalnum ft_strrchr ft_str_not_in ft_strlcpy ft_memcmp ft_split \
 		ft_isalpha ft_memcpy ft_putnbr_fd ft_strnstr ft_strjoin \
 		ft_isascii ft_memmove ft_strchr ft_strdup ft_strdupdup ft_substr \
 		ft_lstiter ft_lstsize ft_lstclear ft_lstdelone ft_lstadd_back \

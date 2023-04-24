@@ -6,7 +6,7 @@
 /*   By: aoudija <aoudija@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 06:26:45 by abelhadj          #+#    #+#             */
-/*   Updated: 2023/04/24 06:43:59 by aoudija          ###   ########.fr       */
+/*   Updated: 2023/04/24 07:01:23 by aoudija          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,5 +36,9 @@ t_data	*data;
 void	*ft_free(char **table);
 char	**ft_strdupdup(char **tab);
 void	execute(char *cmd);
+void	ft_env(void);
+void	ft_echo(char *cmd);
+void	ft_export(char *cmd);
+
 
 #endif

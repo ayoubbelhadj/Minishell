@@ -6,7 +6,7 @@
 /*   By: aoudija <aoudija@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/20 23:52:49 by aoudija           #+#    #+#             */
-/*   Updated: 2023/04/24 05:14:01 by aoudija          ###   ########.fr       */
+/*   Updated: 2023/04/24 07:28:52 by aoudija          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,22 +33,10 @@
 
 void	execute(char *cmd)
 {
-	// int	pid;
-	int		i;
-	char	**temp;
-
 	if (!ft_strncmp(cmd, "echo", 5))
 		ft_echo(cmd);
 	else if (!ft_strncmp(cmd, "env", 3))
-	{
-		i = -1;
-		while (data->env[++i])
-			printf("%s\n", data->env[i]);
-	}
+		ft_env();
 	if (!ft_strncmp(cmd, "export", 6))
-	{
-		temp = ft_split(cmd, ' ');
-		if (temp[1])
-			data->env = twod_join(data->env, temp[1]);
-	}
+		ft_export(cmd);
 }
