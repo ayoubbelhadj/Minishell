@@ -1,29 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   execute.c                                          :+:      :+:    :+:   */
+/*   fill_env.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aoudija <aoudija@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/20 23:52:49 by aoudija           #+#    #+#             */
-/*   Updated: 2023/05/01 12:49:41 by aoudija          ###   ########.fr       */
+/*   Created: 2023/04/25 13:23:23 by aoudija           #+#    #+#             */
+/*   Updated: 2023/04/27 15:23:05 by aoudija          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "include/minishell.h"
+#include "../include/minishell.h"
 
-void	execute(char *cmd)
+void	fill_env(char **envv)
 {
-	if (!strncmp("echo", cmd, 5))
-		ft_echo(cmd);
-	else if (!ft_strncmp("env", cmd, 5))
-		ft_env();
-	else if (!ft_strncmp("export", cmd, 6))
-		ft_export(cmd);
-	else if (!ft_strncmp("unset", cmd, 5))
-		ft_unset(cmd);
-	else if (!ft_strncmp("pwd", cmd, 3))
-		printf("%s\n",getenv("PWD"));
-	// else if (!ft_strncmp(cmd, "cd", 2))
-	// 	ft_cd();
+	int	i;
+
+	i = -1;
+	while(envv[++i])
+		ft_lstadd_back(&g_data.env, ft_lstnew(envv[i]));
 }

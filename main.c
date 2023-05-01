@@ -6,7 +6,7 @@
 /*   By: aoudija <aoudija@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 22:02:39 by aoudija           #+#    #+#             */
-/*   Updated: 2023/04/24 13:25:51 by aoudija          ###   ########.fr       */
+/*   Updated: 2023/04/29 15:53:56 by aoudija          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,10 @@ int	main(int ac, char **av, char **envv)
 
 	(void)ac;
 	(void)av;
-	g_data = malloc(sizeof(t_data *));
-	g_data->env = ft_strdupdup(envv);
+
+	fill_env(envv);
+	fill_export();
+	// exit (0);
 	while (1)
 	{
 		signal(SIGINT, sigint_handler);
