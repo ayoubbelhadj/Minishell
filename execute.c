@@ -6,7 +6,7 @@
 /*   By: aoudija <aoudija@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/20 23:52:49 by aoudija           #+#    #+#             */
-/*   Updated: 2023/05/01 12:49:41 by aoudija          ###   ########.fr       */
+/*   Updated: 2023/05/04 16:21:27 by aoudija          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	execute(char *cmd)
 {
-	if (!strncmp("echo", cmd, 5))
+	if (!ft_strncmp("echo", cmd, 4))
 		ft_echo(cmd);
 	else if (!ft_strncmp("env", cmd, 5))
 		ft_env();

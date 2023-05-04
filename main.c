@@ -34,7 +34,7 @@ int	main(int ac, char **av, char **envv)
 	while (1)
 	{
 		signal(SIGINT, sigint_handler);
-		cmd = readline("\x1B[34mmy_shell>\033[0m");
+		cmd = readline("\x1B[34mmy_shell> \033[0m");
 		if (cmd[0])
 		{
 			execute(cmd);

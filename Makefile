@@ -6,7 +6,7 @@
 #    By: aoudija <aoudija@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/17 22:42:33 by aoudija           #+#    #+#              #
-#    Updated: 2023/04/29 13:00:01 by aoudija          ###   ########.fr        #
+#    Updated: 2023/05/04 16:14:23 by aoudija          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,8 @@ LIBFT = $(addprefix  libft/, ft_isdigit ft_memset  ft_isprint ft_putendl_fd ft_i
 		ft_lstnew ft_lstadd_front two_d_strjoin ft_lstmap freed_strjoin ft_free ft_lstlast\
 		get_next_line_utils get_next_line)
 
-FILES = main builtins/builtins builtins/fill_env builtins/fill_export execute $(LIBFT)
+FILES = main builtins/builtins builtins/fill_env builtins/ft_export builtins/ft_unset\
+		builtins/fill_export execute $(LIBFT)
 
 SRC		= $(FILES:=.c)
 OBJ		= $(FILES:=.o)

@@ -6,7 +6,7 @@
 /*   By: aoudija <aoudija@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/29 12:51:51 by aoudija           #+#    #+#             */
-/*   Updated: 2023/05/01 10:15:53 by aoudija          ###   ########.fr       */
+/*   Updated: 2023/05/04 13:53:18 by aoudija          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ void	sort_exp(void)
 		tempp = temp;
 		while (tempp)
 		{
-			if (tempp->next && ft_strcmp(temp->content, tempp->next->content) > 0)
+			if (tempp->next && ft_strcmp(temp->content,
+					tempp->next->content) > 0)
 			{
 				t = ft_strdup(temp->content);
 				temp->content = tempp->next->content;
@@ -39,14 +40,24 @@ void	sort_exp(void)
 void	fill_export(void)
 {
 	t_list	*temp;
-	// char	*this;
+	char	*t;
+	char	*d;
+	int		len;
 
 	temp = g_data.env;
 	g_data.exp = NULL;
 	while (temp)
 	{
-		// this = 
-		ft_lstadd_back(&g_data.exp, ft_lstnew(ft_strjoin("declare -x ", temp->content)));
+		t = ft_substr(temp->content, 0, strlen_var(temp->content) + 1);
+		len = ft_strlen(t);
+		d = ft_strjoin(t, "\"");
+		free(t);
+		t = ft_substr(temp->content, len, ft_strlen(temp->content));
+		d = ft_strjoin_frees1(d, t);
+		free(t);
+		t = ft_strjoin_frees1(d, "\"");
+		ft_lstadd_back(&g_data.exp, ft_lstnew(ft_strjoin("declare -x ", t)));
+		free(t);
 		temp = temp->next;
 	}
 	sort_exp();

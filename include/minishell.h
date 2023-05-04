@@ -6,7 +6,7 @@
 /*   By: aoudija <aoudija@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 06:26:45 by abelhadj          #+#    #+#             */
-/*   Updated: 2023/05/01 12:49:57 by aoudija          ###   ########.fr       */
+/*   Updated: 2023/05/04 15:16:43 by aoudija          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 # include <string.h>
 # include <signal.h>
 # include <dirent.h>
+# include <sys/errno.h>
 # include "../libft/libft.h"
 
 void	ft_echo(char *cmd);
