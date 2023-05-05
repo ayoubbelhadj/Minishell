@@ -6,7 +6,7 @@
 /*   By: abelhadj <abelhadj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/09 20:08:24 by abelhadj          #+#    #+#             */
-/*   Updated: 2023/04/20 22:59:59 by abelhadj         ###   ########.fr       */
+/*   Updated: 2023/05/02 14:36:35 by abelhadj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ int	ft_atoi(const char *nptr)
 	long long	nbr;
 	long long	n;
 	long long	i;
-	
 
 	i = 0;
 	sign = 1;

@@ -1,31 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstclear.c                                      :+:      :+:    :+:   */
+/*   ft_charjoin.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abelhadj <abelhadj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/18 13:47:09 by abelhadj          #+#    #+#             */
-/*   Updated: 2023/05/04 17:56:12 by abelhadj         ###   ########.fr       */
+/*   Created: 2023/04/25 12:19:37 by abelhadj          #+#    #+#             */
+/*   Updated: 2023/04/25 12:20:07 by abelhadj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include"libft.h"
+#include "libft.h"
 
-void	ft_lstclear(t_list **lst, void (*del)(void*))
+char	*ft_charjoin(char *s, char c)
 {
-	t_list	*temp;
-	t_list	*t;
+	char	*str;
+	int		i;
 
-	if (!del || !lst)
-		return ;
-	t = *lst;
-	temp = *lst;
-	while (temp)
+	i = 0;
+	str = malloc(ft_strlen(s) + 2);
+	while (s[i])
 	{
-		temp = t->next;
-		ft_lstdelone(t, del);
-		t = temp;
+		str[i] = s[i];
+		i++;
 	}
-	*lst = NULL;
+	str[i++] = c;
+	str[i] = 0;
+	free(s);
+	return (str);
 }

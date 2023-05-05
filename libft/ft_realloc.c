@@ -1,31 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstclear.c                                      :+:      :+:    :+:   */
+/*   ft_realloc.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abelhadj <abelhadj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/18 13:47:09 by abelhadj          #+#    #+#             */
-/*   Updated: 2023/05/04 17:56:12 by abelhadj         ###   ########.fr       */
+/*   Created: 2023/05/05 14:25:33 by abelhadj          #+#    #+#             */
+/*   Updated: 2023/05/05 14:43:08 by abelhadj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include"libft.h"
+#include "libft.h"
 
-void	ft_lstclear(t_list **lst, void (*del)(void*))
+char	**ft_realloc(char **tab, char *str)
 {
-	t_list	*temp;
-	t_list	*t;
+	char	**t;
+	int		i;
 
-	if (!del || !lst)
-		return ;
-	t = *lst;
-	temp = *lst;
-	while (temp)
+	i = 0;
+	while (tab && tab[i])
+		i++;
+	t = malloc(sizeof(char *) * (i + 2));
+	i = 0;
+	while (tab && tab[i])
 	{
-		temp = t->next;
-		ft_lstdelone(t, del);
-		t = temp;
+		t[i] = ft_calloc(sizeof(char), 1);
+		t[i] = ft_strjoinfree(t[i], tab[i]);
+		i++;
 	}
-	*lst = NULL;
+	t[i] = ft_calloc(sizeof(char), 1);
+	t[i] = ft_strjoinfree(t[i], str);
+	i++;
+	t[i] = NULL;
+	ft_freetab(tab);
+	return (t);
 }

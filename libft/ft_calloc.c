@@ -6,7 +6,7 @@
 /*   By: abelhadj <abelhadj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/08 17:56:36 by abelhadj          #+#    #+#             */
-/*   Updated: 2023/04/20 22:56:56 by abelhadj         ###   ########.fr       */
+/*   Updated: 2023/04/25 12:19:54 by abelhadj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ void	*ft_calloc(size_t num, size_t size)
 	str = (void *)malloc(t);
 	if (!str)
 		return (NULL);
-		
 	ft_bzero(str, t);
 	return (str);
 }

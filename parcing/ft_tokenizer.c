@@ -1,31 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstclear.c                                      :+:      :+:    :+:   */
+/*   ft_tokenizer.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abelhadj <abelhadj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/18 13:47:09 by abelhadj          #+#    #+#             */
-/*   Updated: 2023/05/04 17:56:12 by abelhadj         ###   ########.fr       */
+/*   Created: 2023/04/25 12:16:57 by abelhadj          #+#    #+#             */
+/*   Updated: 2023/05/05 16:29:43 by abelhadj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include"libft.h"
+#include"../include/minishell.h"
 
-void	ft_lstclear(t_list **lst, void (*del)(void*))
+void	ft_tokenizer(char *cmd, t_data **data)
 {
-	t_list	*temp;
-	t_list	*t;
+	int	i;
 
-	if (!del || !lst)
-		return ;
-	t = *lst;
-	temp = *lst;
-	while (temp)
+	i = -1;
+	*data = NULL;
+	while (cmd[++i])
 	{
-		temp = t->next;
-		ft_lstdelone(t, del);
-		t = temp;
+		if (cmd[i] && !ft_opt_check(cmd[i], cmd, i))
+			ft_add_str(data, cmd, &i);
+		if (cmd[i] && ft_opt_check(cmd[i], cmd, i) && cmd[i] != ' ')
+			ft_add_operator(data, cmd, &i);
 	}
-	*lst = NULL;
+	ft_cmd_type(data);
+	if (ft_check_data_syntax(data))
+		ft_dataclear(data);
 }

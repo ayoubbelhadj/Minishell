@@ -1,31 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstclear.c                                      :+:      :+:    :+:   */
+/*   ft_start.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abelhadj <abelhadj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/18 13:47:09 by abelhadj          #+#    #+#             */
-/*   Updated: 2023/05/04 17:56:12 by abelhadj         ###   ########.fr       */
+/*   Created: 2023/04/25 12:15:49 by abelhadj          #+#    #+#             */
+/*   Updated: 2023/05/05 16:43:55 by abelhadj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include"libft.h"
+#include"../include/minishell.h"
 
-void	ft_lstclear(t_list **lst, void (*del)(void*))
+int	ft_start(char *line, t_data *data, t_cmd *cmd)
 {
-	t_list	*temp;
-	t_list	*t;
-
-	if (!del || !lst)
-		return ;
-	t = *lst;
-	temp = *lst;
-	while (temp)
+	if (check_syntax(line))
 	{
-		temp = t->next;
-		ft_lstdelone(t, del);
-		t = temp;
+		g_stuct.exit_status = SYNTAX_ERROR;
+		printf("\033[0;31mSyntax Error!\n");
+		return (0);
 	}
-	*lst = NULL;
+	ft_tokenizer(line, &data);
+	ft_get_cmd(&data, &cmd);
+	ft_cmdclear(&cmd);
+	ft_dataclear(&data);
+	return (1);
 }
