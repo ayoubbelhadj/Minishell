@@ -71,7 +71,7 @@
       "isMobileMode": false,
       "isSnapMode": false,
       "lastUpdatedPageId": "page:-NiizHvAhTeNdNi7bWrra",
-      "lastUsedTabId": "instance:zONyun3HDgI1eb5E4i-87",
+      "lastUsedTabId": "instance:qHEKE0ge_Xe0fdan6mEhP",
       "id": "user_document:Z5UbxlG8DODN2UlH8KUDB",
       "userId": "user:O_zywsFwqP7XGnbENNU5p",
       "typeName": "user_document"
@@ -128,18 +128,18 @@
       "typeName": "user"
     },
     {
-      "lastUsedInstanceId": "instance:zONyun3HDgI1eb5E4i-87",
-      "lastActivityTimestamp": 1682207629931,
+      "lastUsedInstanceId": "instance:qHEKE0ge_Xe0fdan6mEhP",
+      "lastActivityTimestamp": 1683294986370,
       "cursor": {
-        "x": 361.0260314941406,
-        "y": 565.8365478515625,
+        "x": 16.829682471891118,
+        "y": -190.23336224967306,
         "z": 0
       },
       "viewportPageBounds": {
-        "x": -124.703125,
-        "y": -118.427734375,
-        "w": 1065,
-        "h": 810
+        "x": -180.54307588610254,
+        "y": -807.2450654910245,
+        "w": 799.7442027472849,
+        "h": 2121.609220108636
       },
       "color": "#BD54C6",
       "id": "user_presence:FTEmhVDMnZvyp5jWwwU5j",
@@ -225,6 +225,66 @@
       "pageId": "page:-NiizHvAhTeNdNi7bWrra",
       "instanceId": "instance:zONyun3HDgI1eb5E4i-87",
       "cameraId": "camera:WWhl37iiuCYlWyibjFewD",
+      "typeName": "instance_page_state"
+    },
+    {
+      "followingUserId": null,
+      "propsForNextShape": {
+        "opacity": "1",
+        "color": "light-green",
+        "labelColor": "black",
+        "dash": "draw",
+        "fill": "none",
+        "size": "m",
+        "icon": "file",
+        "font": "draw",
+        "align": "middle",
+        "geo": "rectangle",
+        "arrowheadStart": "none",
+        "arrowheadEnd": "arrow",
+        "spline": "line"
+      },
+      "brush": null,
+      "scribble": null,
+      "cursor": {
+        "type": "default",
+        "color": "black",
+        "rotation": 0
+      },
+      "isFocusMode": false,
+      "exportBackground": true,
+      "isDebugMode": false,
+      "isToolLocked": false,
+      "screenBounds": {
+        "x": 0,
+        "y": 0,
+        "w": 1097.5,
+        "h": 1120.833251953125
+      },
+      "id": "instance:qHEKE0ge_Xe0fdan6mEhP",
+      "userId": "user:O_zywsFwqP7XGnbENNU5p",
+      "currentPageId": "page:-NiizHvAhTeNdNi7bWrra",
+      "typeName": "instance"
+    },
+    {
+      "x": 180.54307588610254,
+      "y": 807.2450654910245,
+      "z": 0.5282939201667559,
+      "id": "camera:RSZzUqYkLBLYRAoGuA2mv",
+      "typeName": "camera"
+    },
+    {
+      "editingId": null,
+      "croppingId": null,
+      "selectedIds": [],
+      "hoveredId": null,
+      "erasingIds": [],
+      "hintingIds": [],
+      "focusLayerId": null,
+      "id": "instance_page_state:KFxSTxZKeDCDsaN3rrGM3",
+      "pageId": "page:-NiizHvAhTeNdNi7bWrra",
+      "instanceId": "instance:qHEKE0ge_Xe0fdan6mEhP",
+      "cameraId": "camera:RSZzUqYkLBLYRAoGuA2mv",
       "typeName": "instance_page_state"
     },
     {
@@ -467,7 +527,6 @@
       "y": 410.5728359222412,
       "rotation": 0,
       "isLocked": false,
-      "id": "shape:IWfon2-BF_rAGkzvWFvGR",
       "type": "text",
       "props": {
         "opacity": "1",
@@ -482,6 +541,7 @@
       },
       "parentId": "page:-NiizHvAhTeNdNi7bWrra",
       "index": "aB",
+      "id": "shape:IWfon2-BF_rAGkzvWFvGR",
       "typeName": "shape"
     },
     {
@@ -489,7 +549,6 @@
       "y": 447.63991355895996,
       "rotation": 0,
       "isLocked": false,
-      "id": "shape:Ab1n8ZeKaFAZH9yIowdtu",
       "type": "text",
       "props": {
         "opacity": "1",
@@ -504,6 +563,7 @@
       },
       "parentId": "page:-NiizHvAhTeNdNi7bWrra",
       "index": "aC",
+      "id": "shape:Ab1n8ZeKaFAZH9yIowdtu",
       "typeName": "shape"
     },
     {
@@ -511,7 +571,6 @@
       "y": 441.70245361328125,
       "rotation": 0,
       "isLocked": false,
-      "id": "shape:cCnI6d7Rtxqi6gYvb2r_T",
       "type": "arrow",
       "parentId": "page:-NiizHvAhTeNdNi7bWrra",
       "index": "aD",
@@ -540,6 +599,127 @@
             "y": 0.018690947748055815
           },
           "isExact": false
+        },
+        "arrowheadStart": "none",
+        "arrowheadEnd": "arrow",
+        "text": "",
+        "font": "draw"
+      },
+      "id": "shape:cCnI6d7Rtxqi6gYvb2r_T",
+      "typeName": "shape"
+    },
+    {
+      "x": 8.023284575475714,
+      "y": -431.78067924557735,
+      "rotation": 0,
+      "isLocked": false,
+      "id": "shape:MMTZ4-J5IWpSg7YPkhr_U",
+      "type": "text",
+      "props": {
+        "opacity": "1",
+        "color": "black",
+        "size": "m",
+        "w": 8,
+        "text": "argv - This is a pointer to an array of strings that represents the arguments to be passed to the executable file. The first element of the array should be the name of the executable file itself.",
+        "font": "draw",
+        "align": "middle",
+        "autoSize": true,
+        "scale": 1
+      },
+      "parentId": "page:-NiizHvAhTeNdNi7bWrra",
+      "index": "aE",
+      "typeName": "shape"
+    },
+    {
+      "x": -33.4783447022121,
+      "y": -484.7864967560207,
+      "rotation": 0,
+      "isLocked": false,
+      "id": "shape:f2qaM4x5u9vgZkRc4iuRo",
+      "type": "text",
+      "props": {
+        "opacity": "1",
+        "color": "black",
+        "size": "m",
+        "w": 8,
+        "text": "int execve(const char *filename, char *const argv[], char *const envp[]);\n",
+        "font": "draw",
+        "align": "middle",
+        "autoSize": true,
+        "scale": 0.9531150223283891
+      },
+      "parentId": "page:-NiizHvAhTeNdNi7bWrra",
+      "index": "aF",
+      "typeName": "shape"
+    },
+    {
+      "x": -17.93483434809795,
+      "y": -445.21837363780287,
+      "rotation": 0,
+      "isLocked": false,
+      "id": "shape:JOBNNubE9DGFz8Z_tM6Z8",
+      "type": "arrow",
+      "parentId": "page:-NiizHvAhTeNdNi7bWrra",
+      "index": "aG",
+      "props": {
+        "opacity": "1",
+        "dash": "draw",
+        "size": "m",
+        "fill": "none",
+        "color": "light-green",
+        "labelColor": "black",
+        "bend": 0,
+        "start": {
+          "type": "binding",
+          "boundShapeId": "shape:f2qaM4x5u9vgZkRc4iuRo",
+          "normalizedAnchor": {
+            "x": 0.5,
+            "y": 0.5
+          },
+          "isExact": false
+        },
+        "end": {
+          "type": "binding",
+          "boundShapeId": "shape:f2qaM4x5u9vgZkRc4iuRo",
+          "normalizedAnchor": {
+            "x": 0.5,
+            "y": 0.5
+          },
+          "isExact": false
+        },
+        "arrowheadStart": "none",
+        "arrowheadEnd": "arrow",
+        "text": "",
+        "font": "draw"
+      },
+      "typeName": "shape"
+    },
+    {
+      "x": -67.83258029120258,
+      "y": -470.19804687141647,
+      "rotation": 0,
+      "isLocked": false,
+      "id": "shape:p3yKiUqbNzrIHXp0DcHWx",
+      "type": "arrow",
+      "parentId": "page:-NiizHvAhTeNdNi7bWrra",
+      "index": "aH",
+      "props": {
+        "opacity": "1",
+        "dash": "draw",
+        "size": "m",
+        "fill": "none",
+        "color": "light-green",
+        "labelColor": "black",
+        "bend": 59.84228823680596,
+        "start": {
+          "type": "point",
+          "x": 28.491877914691216,
+          "y": -4.159172652046493
+        },
+        "end": {
+          "type": "point",
+          "x": 44.19814860319984,
+          "y": 104.97748885450977
         },
         "arrowheadStart": "none",
         "arrowheadEnd": "arrow",

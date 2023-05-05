@@ -6,7 +6,7 @@
 #    By: aoudija <aoudija@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/17 22:42:33 by aoudija           #+#    #+#              #
-#    Updated: 2023/05/04 16:14:23 by aoudija          ###   ########.fr        #
+#    Updated: 2023/05/05 15:46:16 by aoudija          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = minishell
 
 CC = cc
 
-FLAGS = -Wall -Wextra -Werror
+# FLAGS = -Wall -Wextra -Werror
 
 DEPS = minishell.h
 
@@ -32,7 +32,7 @@ LIBFT = $(addprefix  libft/, ft_isdigit ft_memset  ft_isprint ft_putendl_fd ft_i
 		get_next_line_utils get_next_line)
 
 FILES = main builtins/builtins builtins/fill_env builtins/ft_export builtins/ft_unset\
-		builtins/fill_export execute $(LIBFT)
+		builtins/fill_export pipe/pipe execute $(LIBFT)
 
 SRC		= $(FILES:=.c)
 OBJ		= $(FILES:=.o)

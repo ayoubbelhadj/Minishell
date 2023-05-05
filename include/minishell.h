@@ -6,7 +6,7 @@
 /*   By: aoudija <aoudija@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 06:26:45 by abelhadj          #+#    #+#             */
-/*   Updated: 2023/05/04 15:16:43 by aoudija          ###   ########.fr       */
+/*   Updated: 2023/05/05 15:39:23 by aoudija          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,5 +44,6 @@ void	fill_env(char **envv);
 void	fill_export(void);
 t_data	g_data;
 void	sort_exp(void);
+void	pipe_it();
 
 #endif

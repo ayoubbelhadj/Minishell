@@ -6,7 +6,7 @@
 /*   By: aoudija <aoudija@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/20 23:52:49 by aoudija           #+#    #+#             */
-/*   Updated: 2023/05/04 16:21:27 by aoudija          ###   ########.fr       */
+/*   Updated: 2023/05/05 15:41:16 by aoudija          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ void	execute(char *cmd)
 		ft_unset(cmd);
 	else if (!ft_strncmp("pwd", cmd, 3))
 		printf("%s\n",getenv("PWD"));
+	else
+		pipe_it();
 	// else if (!ft_strncmp(cmd, "cd", 2))
 	// 	ft_cd();
 }
