@@ -1,24 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtins.c                                         :+:      :+:    :+:   */
+/*   ft_tokenizer.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abelhadj <abelhadj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/17 22:02:28 by aoudija           #+#    #+#             */
-/*   Updated: 2023/04/20 23:04:26 by abelhadj         ###   ########.fr       */
+/*   Created: 2023/04/25 12:16:57 by abelhadj          #+#    #+#             */
+/*   Updated: 2023/05/09 18:41:13 by abelhadj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "include/minishell.h"
+#include"../include/minishell.h"
 
-void	ft_echo(char *cmd)
+void	ft_tokenizer(char *cmd, t_token **data)
 {
-	size_t	len;
-	char	*s;
+	int	i;
 
-	len = ft_strlen(cmd) - 5;
-	s =  ft_substr(cmd, 5,len);
-	printf("%s", s);
-	free(s);
+	i = -1;
+	*data = NULL;
+	while (cmd[++i])
+	{
+		if (cmd[i] && !ft_red_check(cmd[i], cmd, i))
+			ft_add_str(data, cmd, &i);
+		if (cmd[i] && ft_red_check(cmd[i], cmd, i) && cmd[i] != ' ')
+			ft_add_operator(data, cmd, &i);
+	}
+	ft_cmd_type(data);
+	if (ft_check_data_syntax(data))
+		ft_dataclear(data);
 }
