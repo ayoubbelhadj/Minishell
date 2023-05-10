@@ -6,7 +6,7 @@
 /*   By: abelhadj <abelhadj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 16:37:21 by abelhadj          #+#    #+#             */
-/*   Updated: 2023/05/05 16:38:28 by abelhadj         ###   ########.fr       */
+/*   Updated: 2023/05/09 18:37:46 by abelhadj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,10 @@
 void	ft_init_cmd(t_cmd *cmd)
 {
 	cmd->args = NULL;
-	cmd->red_args = NULL;
 	cmd->cmd = NULL;
+	cmd->in = 0;
+	cmd->out = 1;
+	cmd->error = 1;
 	cmd->next = NULL;
 }
 
@@ -27,26 +29,31 @@ void	ft_cmdadd(t_cmd **cmd, t_cmd **new)
 	ft_init_cmd(*new);
 }
 
-void	ft_get_cmd(t_data **data, t_cmd **cmd)
+void	ft_cmd(t_token	*tmp, t_cmd **cmd_tmp)
 {
-	t_data	*tmp;
+	(*cmd_tmp)->cmd = ft_strdup(tmp->value);
+	if (ft_check_cmd((*cmd_tmp)->cmd))
+			(*cmd_tmp)->in = -1;
+}
+
+void	ft_get_cmd(t_token **data, t_cmd **cmd)
+{
+	t_token	*tmp;
 	t_cmd	*cmd_tmp;
 
 	cmd_tmp = NULL;
 	ft_cmdadd(cmd, &cmd_tmp);
 	tmp = *data;
+
 	while (tmp)
 	{
-		if (tmp->type == CMD)
-			cmd_tmp->cmd = tmp->value;
 		if (tmp->type == CMD || tmp->type == ARG)
 			cmd_tmp->args = ft_realloc(cmd_tmp->args, tmp->value);
 		else if (tmp->type == APPEND || tmp->type == HERDOC
-			|| tmp->type == OUTPUT || tmp->type == INPUT)
-		{
-			cmd_tmp->red_args = ft_realloc(cmd_tmp->red_args, tmp->value);
-			cmd_tmp->red_args = ft_realloc(cmd_tmp->red_args, tmp->next->value);
-		}
+			|| tmp->type == INFILE || tmp->type == OUTFILE)
+			ft_inoutfile(tmp, &cmd_tmp);
+		if (tmp->type == CMD)
+			ft_cmd(tmp, &cmd_tmp);
 		if ((tmp->next && tmp->next->type == PIPE) || tmp->next == NULL)
 			ft_cmdadd(cmd, &cmd_tmp);
 		tmp = tmp->next;

@@ -1,28 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_start.c                                         :+:      :+:    :+:   */
+/*   ft_tokenizer.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abelhadj <abelhadj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/25 12:15:49 by abelhadj          #+#    #+#             */
-/*   Updated: 2023/05/05 16:43:55 by abelhadj         ###   ########.fr       */
+/*   Created: 2023/04/25 12:16:57 by abelhadj          #+#    #+#             */
+/*   Updated: 2023/05/09 18:41:13 by abelhadj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include"../include/minishell.h"
 
-int	ft_start(char *line, t_data *data, t_cmd *cmd)
+void	ft_tokenizer(char *cmd, t_token **data)
 {
-	if (check_syntax(line))
+	int	i;
+
+	i = -1;
+	*data = NULL;
+	while (cmd[++i])
 	{
-		g_stuct.exit_status = SYNTAX_ERROR;
-		printf("\033[0;31mSyntax Error!\n");
-		return (0);
+		if (cmd[i] && !ft_red_check(cmd[i], cmd, i))
+			ft_add_str(data, cmd, &i);
+		if (cmd[i] && ft_red_check(cmd[i], cmd, i) && cmd[i] != ' ')
+			ft_add_operator(data, cmd, &i);
 	}
-	ft_tokenizer(line, &data);
-	ft_get_cmd(&data, &cmd);
-	ft_cmdclear(&cmd);
-	ft_dataclear(&data);
-	return (1);
+	ft_cmd_type(data);
+	if (ft_check_data_syntax(data))
+		ft_dataclear(data);
 }

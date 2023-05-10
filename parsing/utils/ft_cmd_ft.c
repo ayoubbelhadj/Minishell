@@ -6,11 +6,11 @@
 /*   By: abelhadj <abelhadj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 16:43:32 by abelhadj          #+#    #+#             */
-/*   Updated: 2023/05/05 16:44:02 by abelhadj         ###   ########.fr       */
+/*   Updated: 2023/05/09 17:07:51 by abelhadj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include"../include/minishell.h"
+#include"../../include/minishell.h"
 
 t_cmd	*ft_cmdlast(t_cmd *cmd)
 {
@@ -45,8 +45,9 @@ void	ft_cmddeloner(t_cmd *cmd)
 {
 	if (!cmd)
 		return ;
+	free(cmd->cmd);
 	ft_freetab(cmd->args);
-	ft_freetab(cmd->red_args);
+	// ft_freetab(cmd->red_args);
 	free(cmd);
 }
 
@@ -66,4 +67,17 @@ void	ft_cmdclear(t_cmd	**cmd)
 		t = temp;
 	}
 	*cmd = NULL;
+}
+
+int	ft_cmdsize(t_cmd *cmd)
+{
+	int	i;
+
+	i = 0;
+	while (cmd)
+	{
+		cmd = cmd->next;
+		i++;
+	}
+	return (i);
 }

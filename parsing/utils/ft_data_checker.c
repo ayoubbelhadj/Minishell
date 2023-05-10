@@ -6,16 +6,16 @@
 /*   By: abelhadj <abelhadj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 12:18:34 by abelhadj          #+#    #+#             */
-/*   Updated: 2023/05/05 16:33:54 by abelhadj         ###   ########.fr       */
+/*   Updated: 2023/05/09 18:21:33 by abelhadj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include"../include/minishell.h"
+#include"../../include/minishell.h"
 
-int	ft_check_herdoc(t_data **data)
+int	ft_check_herdoc(t_token **data)
 {
 	int		i;
-	t_data	*tmp;
+	t_token	*tmp;
 
 	tmp = *data;
 	i = 0;
@@ -27,15 +27,16 @@ int	ft_check_herdoc(t_data **data)
 	}
 	if (i > 16)
 	{
-		printf("\033[0;31mmy_shell: maximum here-document count exceeded\n");
+		ft_putstr_fd("\033[0;31mmy_shell: maximum here-document count"
+			" exceeded\033[0;0m\n", 2);
 		return (1);
 	}
 	return (0);
 }
 
-int	ft_check_pipe(t_data **data)
+int	ft_check_pipe(t_token **data)
 {
-	t_data	*tmp;
+	t_token	*tmp;
 
 	tmp = *data;
 	while (tmp)
@@ -44,14 +45,14 @@ int	ft_check_pipe(t_data **data)
 		{
 			if (!tmp->next || !tmp->prev)
 			{
-				printf("\033[0;31mmy_shell: syntax error" \
-						" near unexpected token '|'\n");
+				ft_putstr_fd("\033[0;31mmy_shell: syntax error" \
+						" near unexpected token '|'\033[0;0m\n", 2);
 				return (1);
 			}
 			else if (tmp->next && tmp->next->type == PIPE)
 			{
-				printf("\033[0;31mmy_shell: syntax error" \
-					" near unexpected token '||'\n");
+				ft_putstr_fd("\033[0;31mmy_shell: syntax error" \
+					" near unexpected token '||'\033[0;0m\n", 2);
 				return (1);
 			}
 		}
@@ -60,7 +61,7 @@ int	ft_check_pipe(t_data **data)
 	return (0);
 }
 
-int	ft_isopt(int type)
+int	ft_isred(int type)
 {
 	if (type == OUTPUT || type == APPEND
 		|| type == INPUT || type == HERDOC)
@@ -68,25 +69,26 @@ int	ft_isopt(int type)
 	return (0);
 }
 
-int	ft_check_opt(t_data **data)
+int	ft_check_red(t_token **data)
 {
-	t_data	*tmp;
+	t_token	*tmp;
 
 	tmp = *data;
 	while (tmp)
 	{
-		if (ft_isopt(tmp->type) && !tmp->next)
+		if (ft_isred(tmp->type) && !tmp->next)
 		{
-			printf("\033[0;31mmy_shell: syntax error near" \
-				" unexpected token 'newline'\n");
+			ft_putstr_fd("\033[0;31mmy_shell: syntax error near" \
+				" unexpected token 'newline'\033[0;0m\n", 2);
 			return (1);
 		}
-		if (ft_isopt(tmp->type) && tmp->next
-			&& (ft_isopt(tmp->next->type) || tmp->next->type == PIPE))
+		if (ft_isred(tmp->type) && tmp->next
+			&& (ft_isred(tmp->next->type) || tmp->next->type == PIPE))
 		{
-			printf("\033[0;31mmy_shell: syntax error near" \
-				" unexpected token '%s'\n",
-				tmp->next->value);
+			ft_putstr_fd("\033[0;31mmy_shell: syntax error near" \
+				" unexpected token '", 2);
+			ft_putstr_fd(tmp->next->value, 2);
+			ft_putstr_fd("'\033[0;0m\n", 2);
 			return (1);
 		}
 		tmp = tmp->next;
@@ -94,13 +96,15 @@ int	ft_check_opt(t_data **data)
 	return (0);
 }
 
-int	ft_check_data_syntax(t_data **data)
+int	ft_check_data_syntax(t_token **data)
 {
 	if (ft_check_pipe(data))
 		return (g_stuct.exit_status = ERROR, 1);
 	if (ft_check_herdoc(data))
 		return (g_stuct.exit_status = ERROR, 1);
-	if (ft_check_opt(data))
+	if (ft_check_red(data))
 		return (g_stuct.exit_status = ERROR_2, 1);
+	// if (ft_check_cmd(data))
+	// 	return (g_stuct.exit_status = CMD_NOT_EXECUT, 1);
 	return (0);
 }

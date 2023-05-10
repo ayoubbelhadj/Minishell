@@ -6,17 +6,17 @@
 /*   By: abelhadj <abelhadj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 12:25:37 by abelhadj          #+#    #+#             */
-/*   Updated: 2023/04/27 12:31:11 by abelhadj         ###   ########.fr       */
+/*   Updated: 2023/05/09 16:46:15 by abelhadj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include"../include/minishell.h"
+#include"../../include/minishell.h"
 
-t_data	*ft_datanew(char *value)
+t_token	*ft_datanew(char *value)
 {
-	t_data	*new;
+	t_token	*new;
 
-	new = (t_data *)malloc(sizeof(t_data));
+	new = (t_token *)malloc(sizeof(t_token));
 	if (!new)
 		return (0);
 	new->type = 1;
@@ -25,9 +25,9 @@ t_data	*ft_datanew(char *value)
 	return (new);
 }
 
-void	ft_data_addback(t_data **data, t_data *new)
+void	ft_data_addback(t_token **data, t_token *new)
 {
-	t_data	*temp;
+	t_token	*temp;
 
 	temp = *data;
 	if (*data == NULL)
@@ -50,7 +50,7 @@ void	ft_data_addback(t_data **data, t_data *new)
 	}
 }
 
-void	ft_datadeloner(t_data *lst)
+void	ft_datadeloner(t_token *lst)
 {
 	if (!lst)
 		return ;
@@ -58,10 +58,10 @@ void	ft_datadeloner(t_data *lst)
 	free(lst);
 }
 
-void	ft_dataclear(t_data **lst)
+void	ft_dataclear(t_token **lst)
 {
-	t_data	*temp;
-	t_data	*t;
+	t_token	*temp;
+	t_token	*t;
 
 	if (!lst)
 		return ;

@@ -6,7 +6,7 @@
 #    By: abelhadj <abelhadj@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/17 22:42:33 by aoudija           #+#    #+#              #
-#    Updated: 2023/05/05 16:45:37 by abelhadj         ###   ########.fr        #
+#    Updated: 2023/05/10 21:40:01 by abelhadj         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,10 +30,12 @@ LIBFT = $(addprefix  libft/, ft_charjoin ft_isdigit ft_memset  ft_isprint ft_put
 		ft_lstiter ft_lstsize ft_lstclear ft_lstdelone ft_lstadd_back \
 		ft_lstnew ft_lstadd_front ft_lstmap ft_lstlast ft_freetab\
 		get_next_line_utils get_next_line ft_realloc ft_strjoinfree)
-PARCING	= $(addprefix  parcing/, ft_list_ft ft_start ft_tokenizer ft_utils ft_add_data\
-		ft_cmd_type ft_data_checker ft_get_cmd ft_cmd_ft)
+PARSING	= $(addprefix  parsing/, expand/ft_expand expand/ft_expand_utils expand/ft_expand_name\
+			lexer/ft_add_data lexer/ft_cmd_type\
+			utils/ft_list_ft utils/ft_utils utils/ft_data_checker utils/ft_cmd_ft utils/ft_data_checker2 utils/ft_inoutfile\
+			ft_start ft_tokenizer ft_get_cmd)
 
-FILES = main builtins $(LIBFT) $(PARCING)
+FILES = main $(LIBFT) $(PARSING)
 
 SRC		= $(FILES:=.c)
 OBJ		= $(FILES:=.o)
