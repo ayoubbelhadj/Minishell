@@ -6,7 +6,7 @@
 #    By: abelhadj <abelhadj@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/17 22:42:33 by aoudija           #+#    #+#              #
-#    Updated: 2023/05/10 21:37:14 by abelhadj         ###   ########.fr        #
+#    Updated: 2023/05/11 14:36:58 by abelhadj         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,7 +35,7 @@ PARSING	= $(addprefix  parsing/, expand/ft_expand expand/ft_expand_utils expand/
 			utils/ft_list_ft utils/ft_utils utils/ft_data_checker utils/ft_cmd_ft utils/ft_data_checker2 utils/ft_inoutfile\
 			ft_start ft_tokenizer ft_get_cmd)
 
-FILES = main builtins $(LIBFT) $(PARSING)
+FILES = main $(LIBFT) $(PARSING)
 
 SRC		= $(FILES:=.c)
 OBJ		= $(FILES:=.o)

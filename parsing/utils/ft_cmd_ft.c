@@ -6,7 +6,7 @@
 /*   By: abelhadj <abelhadj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 16:43:32 by abelhadj          #+#    #+#             */
-/*   Updated: 2023/05/09 17:07:51 by abelhadj         ###   ########.fr       */
+/*   Updated: 2023/05/11 14:40:52 by abelhadj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ void	ft_cmddeloner(t_cmd *cmd)
 		return ;
 	free(cmd->cmd);
 	ft_freetab(cmd->args);
-	// ft_freetab(cmd->red_args);
 	free(cmd);
 }
 

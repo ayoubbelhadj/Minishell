@@ -6,13 +6,13 @@
 /*   By: abelhadj <abelhadj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 12:16:57 by abelhadj          #+#    #+#             */
-/*   Updated: 2023/05/09 18:41:13 by abelhadj         ###   ########.fr       */
+/*   Updated: 2023/05/11 14:35:25 by abelhadj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include"../include/minishell.h"
 
-void	ft_tokenizer(char *cmd, t_token **data)
+int	ft_tokenizer(char *cmd, t_token **data)
 {
 	int	i;
 
@@ -27,5 +27,6 @@ void	ft_tokenizer(char *cmd, t_token **data)
 	}
 	ft_cmd_type(data);
 	if (ft_check_data_syntax(data))
-		ft_dataclear(data);
+		return (ft_dataclear(data), 1);
+	return (0);
 }

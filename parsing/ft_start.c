@@ -6,7 +6,7 @@
 /*   By: abelhadj <abelhadj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 12:15:49 by abelhadj          #+#    #+#             */
-/*   Updated: 2023/05/09 17:50:13 by abelhadj         ###   ########.fr       */
+/*   Updated: 2023/05/11 14:35:13 by abelhadj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ int	ft_start(char *line, t_token *data, t_cmd **cmd)
 		ft_putstr_fd("\033[0;31mSyntax Error!\n\033[0m", 2);
 		return (0);
 	}
-	ft_tokenizer(line, &data);
+	if (ft_tokenizer(line, &data))
+		return (0);
 	ft_get_cmd(&data, cmd);
 	ft_dataclear(&data);
 	return (1);
