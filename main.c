@@ -6,7 +6,7 @@
 /*   By: abelhadj <abelhadj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 22:02:39 by aoudija           #+#    #+#             */
-/*   Updated: 2023/05/10 21:32:27 by abelhadj         ###   ########.fr       */
+/*   Updated: 2023/05/11 14:48:25 by abelhadj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ void	ft_env0(void)
 	t_list	*tmp;
 
 	tmp = g_stuct.env;
-
 	while (tmp)
 	{
 		printf("%s\n", tmp->content);
@@ -64,7 +63,8 @@ int	main(int ac, char **av, char **env)
 		if (line[0])
 		{
 			add_history(line);
-			ft_start(line, data, &cmd);
+			if (ft_start(line, data, &cmd))
+				printf("yes\n");
 			ft_cmdclear(&cmd);
 		}
 		free(line);

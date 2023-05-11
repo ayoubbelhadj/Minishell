@@ -6,7 +6,7 @@
 /*   By: abelhadj <abelhadj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 16:37:21 by abelhadj          #+#    #+#             */
-/*   Updated: 2023/05/09 18:37:46 by abelhadj         ###   ########.fr       */
+/*   Updated: 2023/05/11 14:46:40 by abelhadj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ void	ft_get_cmd(t_token **data, t_cmd **cmd)
 	cmd_tmp = NULL;
 	ft_cmdadd(cmd, &cmd_tmp);
 	tmp = *data;
-
 	while (tmp)
 	{
 		if (tmp->type == CMD || tmp->type == ARG)

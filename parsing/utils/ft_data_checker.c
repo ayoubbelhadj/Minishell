@@ -6,7 +6,7 @@
 /*   By: abelhadj <abelhadj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 12:18:34 by abelhadj          #+#    #+#             */
-/*   Updated: 2023/05/09 18:21:33 by abelhadj         ###   ########.fr       */
+/*   Updated: 2023/05/11 14:37:28 by abelhadj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,5 @@ int	ft_check_data_syntax(t_token **data)
 		return (g_stuct.exit_status = ERROR, 1);
 	if (ft_check_red(data))
 		return (g_stuct.exit_status = ERROR_2, 1);
-	// if (ft_check_cmd(data))
-	// 	return (g_stuct.exit_status = CMD_NOT_EXECUT, 1);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: abelhadj <abelhadj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 06:26:45 by abelhadj          #+#    #+#             */
-/*   Updated: 2023/05/09 18:21:26 by abelhadj         ###   ########.fr       */
+/*   Updated: 2023/05/11 14:35:53 by abelhadj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ void	ft_get_cmd(t_token **data, t_cmd **cmd);
 int		ft_start(char *line, t_token *data, t_cmd **cmd);
 t_token	*ft_datanew(char *value);
 void	ft_data_addback(t_token **data, t_token *new);
-void	ft_tokenizer(char *cmd, t_token **data);
+int		ft_tokenizer(char *cmd, t_token **data);
 int		check_syntax(char *cmd);
 int		ft_quotes(char *cmd, int index);
 int		ft_red_check(char c, char *cmd, int index);
