@@ -6,13 +6,13 @@
 /*   By: aoudija <aoudija@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 16:13:14 by aoudija           #+#    #+#             */
-/*   Updated: 2023/05/12 09:24:11 by aoudija          ###   ########.fr       */
+/*   Updated: 2023/05/12 19:52:36 by aoudija          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-void	pipes(t_cmd *cmd, char **envv)
+void	pipe_it(t_cmd *cmd, char **envv)
 {
 	int		pid;
 	char	*s;
@@ -33,53 +33,77 @@ void	pipes(t_cmd *cmd, char **envv)
 	{
 		if (!i)/*first cmd*/
 		{
-			pipe(fd[i]);
-			pid = fork();
-			if (!pid)
+			if (cmd->in != -1 || cmd->out != -1)
 			{
-				dup2(cmd->in, 0);
-				close(fd[i][0]);
-				s = cmd_path(cmd);
-				dup2(fd[i][1], cmd->out);
-				close(fd[i][1]);
-				execve(s, cmd->args, envv);
-				exit(0);
+				s = grant_access(cmd);
+				if (!s)
+					return ;
+				pipe(fd[i]);
+				pid = fork();
+				if (!pid)
+				{
+					dup2(cmd->in, 0);
+					dup2(cmd->out, 1);
+					close(fd[i][0]);
+					dup2(fd[i][1], cmd->out);
+					close(fd[i][1]);
+					execve(s, cmd->args, envv);
+					perror("");
+					exit(EXIT_FAILURE);
+				}
 			}
 		}
 		cmd = cmd->next;
 		if (!cmd->next)/*last cmd*/
 		{
-			pid = fork();
-			if (!pid)
+			if (!cmd->args)
+				return ;
+			if (cmd->in != -1 || cmd->out != -1)
 			{
-				dup2(cmd->in, 0);
-				close(fd[i][1]);
-				s = cmd_path(cmd);
-				dup2(fd[i][0], cmd->in);
-				dup2(cmd->out, 1);
-				close(fd[i][0]);
-				execve(s, cmd->args, envv);
-				exit(0);
+				s = grant_access(cmd);
+				if (!s)
+					return ;
+				pid = fork();
+				if (!pid)
+				{
+					dup2(cmd->in, 0);
+					close(fd[i][1]);
+					dup2(fd[i][0], cmd->in);
+					dup2(cmd->out, 1);
+					close(fd[i][0]);
+					execve(s, cmd->args, envv);
+					printf("-> %s\n", s);
+					perror("");
+					exit(EXIT_FAILURE);
+				}
 			}
 		}
 		else if (cmd->next)/*cmd-in-between*/
 		{
-			pipe(fd[++i]);
-			pid = fork();
-			if (!pid)
+			if (cmd->in != -1 || cmd->out != -1)
 			{
-				close(fd[i][0]);
-				close(fd[i - 1][1]);
-				s = cmd_path(cmd);
-				dup2(fd[i - 1][0], cmd->in);
-				dup2(fd[i][1], cmd->out);
-				close(fd[i][1]);
-				close(fd[i - 1][0]);
-				execve(s, cmd->args, envv);
-				exit(0);
+				s = grant_access(cmd);
+				if (s)
+				{
+					pipe(fd[++i]);
+					pid = fork();
+					if (!pid)
+					{
+						dup2(cmd->out, 1);
+						close(fd[i][0]);
+						close(fd[i - 1][1]);
+						dup2(fd[i - 1][0], cmd->in);
+						dup2(fd[i][1], cmd->out);
+						close(fd[i][1]);
+						close(fd[i - 1][0]);
+						execve(s, cmd->args, envv);
+						perror("");
+						exit(EXIT_FAILURE);
+					}
+					else
+						close(fd[i - 1][1]);
+				}
 			}
-			else
-				close(fd[i - 1][1]);
 		}
 	}
 	i = cmd_list_size(tmp) - 2;
@@ -94,29 +118,41 @@ void	pipes(t_cmd *cmd, char **envv)
 	return ;
 }
 
-void	pipe_it(t_cmd *cmd)
+void	execute_it(t_cmd *cmd)
 {
 	int		pid;
 	char	*s;
 	char	**envv;
+	int		status;
 
 	envv = put_in_tab();
-	s = cmd_path(cmd);
 	if (!cmd->next)
 	{
+		if (cmd->in != -1 || cmd->out != -1)
+			return ;
+		if (!cmd->args)
+			return ;
+		s = grant_access(cmd);
+		if (!s)
+			return ;
 		pid = fork();
 		if (!pid)
 		{
 			dup2(cmd->in, 0);
 			dup2(cmd->out, 1);
 			execve(s, cmd->args, envv);
-			exit(0);
+			free(s);
+			perror("");
+			exit(EXIT_FAILURE);
 		}
 		else
 		{
-			waitpid(pid, NULL, 0);
+			waitpid(pid, &status, 0);
+			free(s);
+			ft_free(envv);
 			return ;
 		}
 	}
-	pipes(cmd, envv);
+	pipe_it(cmd, envv);
+	ft_free(envv);
 }

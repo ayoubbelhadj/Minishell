@@ -6,7 +6,7 @@
 #    By: aoudija <aoudija@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/17 22:42:33 by aoudija           #+#    #+#              #
-#    Updated: 2023/05/11 15:04:40 by aoudija          ###   ########.fr        #
+#    Updated: 2023/05/12 13:06:44 by aoudija          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,7 +36,7 @@ PARSING	= $(addprefix  parsing/, expand/ft_expand expand/ft_expand_utils expand/
 			ft_start ft_tokenizer ft_get_cmd)
 		
 FILES = main builtins/builtins builtins/fill_env builtins/ft_export builtins/ft_unset\
-		builtins/fill_export pipe/pipe pipe/pipe_utils pipe/cmd_list_size execute $(LIBFT) $(PARSING)
+		builtins/fill_export pipe/pipe pipe/pipe_utils pipe/cmd_list_size pipe/grant_access execute $(LIBFT) $(PARSING)
 
 SRC		= $(FILES:=.c)
 OBJ		= $(FILES:=.o)

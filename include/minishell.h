@@ -6,7 +6,7 @@
 /*   By: aoudija <aoudija@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 06:26:45 by abelhadj          #+#    #+#             */
-/*   Updated: 2023/05/11 15:05:32 by aoudija          ###   ########.fr       */
+/*   Updated: 2023/05/12 13:05:19 by aoudija          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,44 +73,44 @@ typedef struct s_cmd
 }					t_cmd;
 
 /* datalist */
-void	ft_dataclear(t_token **lst);
-void	ft_datadeloner(t_token *lst);
-void	ft_data_addback(t_token **data, t_token *new);
-t_token	*ft_datanew(char *value);
+void		ft_dataclear(t_token **lst);
+void		ft_datadeloner(t_token *lst);
+void		ft_data_addback(t_token **data, t_token *new);
+t_token		*ft_datanew(char *value);
 
 /* cmdlist */
-t_cmd	*ft_cmdlast(t_cmd *cmd);
-void	ft_cmdaddlist(t_cmd **cmd, t_cmd *new);
-void	ft_cmddeloner(t_cmd *cmd);
-void	ft_cmdclear(t_cmd	**cmd);
-int		ft_cmdsize(t_cmd *cmd);
+t_cmd		*ft_cmdlast(t_cmd *cmd);
+void		ft_cmdaddlist(t_cmd **cmd, t_cmd *new);
+void		ft_cmddeloner(t_cmd *cmd);
+void		ft_cmdclear(t_cmd	**cmd);
+int			ft_cmdsize(t_cmd *cmd);
 
-/* parcing */
-char	*ft_expand(char *value);
-void	ft_get_cmd(t_token **data, t_cmd **cmd);
-int		ft_start(char *line, t_token *data, t_cmd **cmd);
-t_token	*ft_datanew(char *value);
-void	ft_data_addback(t_token **data, t_token *new);
-int		ft_tokenizer(char *cmd, t_token **data);
-int		check_syntax(char *cmd);
-int		ft_quotes(char *cmd, int index);
-int		ft_red_check(char c, char *cmd, int index);
-void	ft_add_operator(t_token **data, char *cmd, int *i);
-void	ft_add_str(t_token **data, char *cmd, int *index);
-void	ft_cmd_type(t_token **data);
-int		ft_check_data_syntax(t_token **data);
-int		ft_check_cmd(char *str);
-int		ft_ischard(int c);
-void	ft_get_infile(t_cmd **cmd, char *value);
-void	ft_get_outfile(t_cmd **cmd, char *value);
-void	ft_get_append(t_cmd **cmd, char *value);
-void	ft_inoutfile(t_token *tmp, t_cmd **cmd);
-void	ft_getchar(char	*value, char **str, int i);
-void	ft_getvarvalue(char *value, int *i, char **str, int	*flag);
-char	*ft_getvalue(char *value, int *i);
-char	*ft_dollarvalue(char *str);
-char	*ft_expand_name(char *value);
-int		ft_isquotein(char *str);
+/* parsing */
+char		*ft_expand(char *value);
+void		ft_get_cmd(t_token **data, t_cmd **cmd);
+int			ft_start(char *line, t_token *data, t_cmd **cmd);
+t_token		*ft_datanew(char *value);
+void		ft_data_addback(t_token **data, t_token *new);
+int			ft_tokenizer(char *cmd, t_token **data);
+int			check_syntax(char *cmd);
+int			ft_quotes(char *cmd, int index);
+int			ft_red_check(char c, char *cmd, int index);
+void		ft_add_operator(t_token **data, char *cmd, int *i);
+void		ft_add_str(t_token **data, char *cmd, int *index);
+void		ft_cmd_type(t_token **data);
+int			ft_check_data_syntax(t_token **data);
+int			ft_check_cmd(char *str);
+int			ft_ischard(int c);
+void		ft_get_infile(t_cmd **cmd, char *value);
+void		ft_get_outfile(t_cmd **cmd, char *value);
+void		ft_get_append(t_cmd **cmd, char *value);
+void		ft_inoutfile(t_token *tmp, t_cmd **cmd);
+void		ft_getchar(char	*value, char **str, int i);
+void		ft_getvarvalue(char *value, int *i, char **str, int	*flag);
+char		*ft_getvalue(char *value, int *i);
+char		*ft_dollarvalue(char *str);
+char		*ft_expand_name(char *value);
+int			ft_isquotein(char *str);
 
 /*------ EXECUTION---------*/
 
@@ -135,10 +135,11 @@ void		sort_exp(void);
 
 //-----PIPE-----
 
-void		pipe_it(t_cmd *cmd);
+void		execute_it(t_cmd *cmd);
 char		**put_in_tab(void);
 char		**path_env(void);
 char		*cmd_path(t_cmd *cmd);
+char		*grant_access(t_cmd *cmd);
 int			cmd_list_size(t_cmd *lst);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: aoudija <aoudija@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 14:55:07 by aoudija           #+#    #+#             */
-/*   Updated: 2023/05/10 21:24:57 by aoudija          ###   ########.fr       */
+/*   Updated: 2023/05/12 18:56:47 by aoudija          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +58,7 @@ char	*cmd_path(t_cmd *cmd)
 	int		a;
 	int		i;
 
-	if (!cmd->cmd)
-		return (NULL);
-	cmd_f = ft_strjoin("/", cmd->cmd);
+	cmd_f = ft_strjoin("/", cmd->args[0]);
 	a = 0;
 	i = -1;
 	path = path_env();

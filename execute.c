@@ -6,7 +6,7 @@
 /*   By: aoudija <aoudija@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/20 23:52:49 by aoudija           #+#    #+#             */
-/*   Updated: 2023/05/11 15:26:55 by aoudija          ###   ########.fr       */
+/*   Updated: 2023/05/12 15:12:37 by aoudija          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void	execute(t_cmd	*cmd)
 {
+	
 	// if (!ft_strncmp("echo", cmd->cmd, 4))
 	// 	ft_echo(cmd->cmd);
 	// else if (!ft_strncmp("env", cmd->cmd, 5))
@@ -25,5 +26,5 @@ void	execute(t_cmd	*cmd)
 	// else if (!ft_strncmp("pwd", cmd->cmd, 3))
 	// 	printf("%s\n",getenv("PWD"));
 	// else
-		pipe_it(cmd);
+		execute_it(cmd);
 }

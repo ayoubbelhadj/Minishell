@@ -6,7 +6,7 @@
 /*   By: aoudija <aoudija@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 22:02:39 by aoudija           #+#    #+#             */
-/*   Updated: 2023/05/11 14:30:45 by aoudija          ###   ########.fr       */
+/*   Updated: 2023/05/12 16:04:46 by aoudija          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,29 +28,31 @@ int	main(int ac, char **av, char **envv)
 	t_cmd	*cmd;
 	// t_cmd	*tmp;
 	// int		i;
-
-	(void)ac;
-	(void)av;
-	fill_env(envv);
-	fill_export();
-	data = malloc(sizeof(t_token *));
-	cmd = NULL;
-	while (1)
+	if (ac == 1)
 	{
-		signal(SIGINT, sigint_handler);
-		line = readline("\x1B[34mbashn't-2.0$ \033[0m");
-		if (line[0])
+		(void)av;
+		fill_env(envv);
+		fill_export();
+		data = malloc(sizeof(t_token *));
+		cmd = NULL;
+		while (1)
 		{
-			if (!ft_strcmp(line, "exit"))
-				break ;
-			add_history(line);
-			if(ft_start(line, data, &cmd))
+			signal(SIGINT, sigint_handler);
+			line = readline("\x1B[34mmy_shell$ \033[0m");
+			if (line[0])
 			{
-				execute(cmd);
-				ft_cmdclear(&cmd);
+				if (!ft_strcmp(line, "exit"))
+					break ;
+				add_history(line);
+				if(ft_start(line, data, &cmd))
+				{
+					execute(cmd);
+					ft_cmdclear(&cmd);
+				}
 			}
+			free(line);
 		}
-		free(line);
+		free(data);
 	}
 	return (0);
 }
