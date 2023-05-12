@@ -6,7 +6,7 @@
 #    By: aoudija <aoudija@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/17 22:42:33 by aoudija           #+#    #+#              #
-#    Updated: 2023/05/05 15:46:16 by aoudija          ###   ########.fr        #
+#    Updated: 2023/05/11 15:04:40 by aoudija          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,8 +14,7 @@ NAME = minishell
 
 CC = cc
 
-# FLAGS = -Wall -Wextra -Werror
-
+FLAGS = -Wall -Wextra -Werror
 DEPS = minishell.h
 
 LFLAGS = -L ~/.brew/opt/readline/lib
@@ -29,10 +28,15 @@ LIBFT = $(addprefix  libft/, ft_isdigit ft_memset  ft_isprint ft_putendl_fd ft_i
 		ft_isascii ft_memmove ft_strchr ft_strdup ft_strdupdup ft_substr \
 		ft_lstiter ft_lstsize ft_lstclear ft_lstdelone ft_lstadd_back \
 		ft_lstnew ft_lstadd_front two_d_strjoin ft_lstmap freed_strjoin ft_free ft_lstlast\
-		get_next_line_utils get_next_line)
+		get_next_line_utils get_next_line ft_realloc ft_strjoinfree ft_freetab ft_charjoin)
 
+PARSING	= $(addprefix  parsing/, expand/ft_expand expand/ft_expand_utils expand/ft_expand_name\
+			lexer/ft_add_data lexer/ft_cmd_type\
+			utils/ft_list_ft utils/ft_utils utils/ft_data_checker utils/ft_cmd_ft utils/ft_data_checker2 utils/ft_inoutfile\
+			ft_start ft_tokenizer ft_get_cmd)
+		
 FILES = main builtins/builtins builtins/fill_env builtins/ft_export builtins/ft_unset\
-		builtins/fill_export pipe/pipe execute $(LIBFT)
+		builtins/fill_export pipe/pipe pipe/pipe_utils pipe/cmd_list_size execute $(LIBFT) $(PARSING)
 
 SRC		= $(FILES:=.c)
 OBJ		= $(FILES:=.o)

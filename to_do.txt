@@ -1,0 +1,17 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    to_do.txt                                          :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: aoudija <aoudija@student.42.fr>            +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2023/05/11 14:53:06 by aoudija           #+#    #+#              #
+#    Updated: 2023/05/11 14:53:22 by aoudija          ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
+
+-exit_status for pipes, perror...
+-builtins : redo with new parser && free memory...
+-check if in_out idea is possible for heredoc...
+-last but not least check_NORMA.

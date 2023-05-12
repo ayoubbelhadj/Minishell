@@ -6,100 +6,117 @@
 /*   By: aoudija <aoudija@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 16:13:14 by aoudija           #+#    #+#             */
-/*   Updated: 2023/05/05 16:29:31 by aoudija          ###   ########.fr       */
+/*   Updated: 2023/05/12 09:24:11 by aoudija          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-char	**pathh(void)
+void	pipes(t_cmd *cmd, char **envv)
 {
-	t_list	*temp;
-	char	*t;
-	char	**path;
-
-	path = NULL;
-	temp = g_data.env;
-	while (temp)
-	{
-		t = ft_substr(temp->content, 0, 4);
-		if (!ft_strcmp(t, "PATH"))
-			path = ft_split(temp->content + 5, ':');
-		free(t);
-		temp = temp->next;
-	}
-	return (path);
-}
-
-char	**put_in_tab(void)
-{
-	t_list	*temp;
-	int		i;
-	char	**envv;
-
-	temp = g_data.env;
-	i = -1;
-	envv = malloc(sizeof(char *) * ft_lstsize(temp) + 1);
-	temp = g_data.env;
-	while (temp)
-	{
-		envv[++i] = ft_strdup(temp->content);
-		temp = temp->next;
-	}
-	envv[++i] = 0;
-	return (envv);
-}
-
-void	pipe_it()
-{
-	// int		pipe_fd[2];
 	int		pid;
 	char	*s;
-	char	*cmd_args[3] = {"ls", "-la", NULL};
-	char	**path;
-	char	**envv;
-	int		a;
+	int		**fd; /* fd[0] -> read && fd[1] -> write; */
 	int		i;
+	t_cmd	*tmp;
 
-	a = 0;
-	i = -1;
-	path = pathh();
-	while (path[++i])
+	tmp	= cmd;
+	fd = malloc(sizeof(int *) * (cmd_list_size(cmd) - 1));
+	i = cmd_list_size(cmd) - 2;
+	while (i >= 0)
 	{
-		s = ft_strjoin(path[i], "/ls");
-		if (!access(s, F_OK))
+		fd[i] = malloc(sizeof(int) * 2);
+		i--;
+	}
+	i = 0;
+	while (cmd->next)
+	{
+		if (!i)/*first cmd*/
 		{
-			a = 5;
-			break ;
+			pipe(fd[i]);
+			pid = fork();
+			if (!pid)
+			{
+				dup2(cmd->in, 0);
+				close(fd[i][0]);
+				s = cmd_path(cmd);
+				dup2(fd[i][1], cmd->out);
+				close(fd[i][1]);
+				execve(s, cmd->args, envv);
+				exit(0);
+			}
 		}
-		free(s);
+		cmd = cmd->next;
+		if (!cmd->next)/*last cmd*/
+		{
+			pid = fork();
+			if (!pid)
+			{
+				dup2(cmd->in, 0);
+				close(fd[i][1]);
+				s = cmd_path(cmd);
+				dup2(fd[i][0], cmd->in);
+				dup2(cmd->out, 1);
+				close(fd[i][0]);
+				execve(s, cmd->args, envv);
+				exit(0);
+			}
+		}
+		else if (cmd->next)/*cmd-in-between*/
+		{
+			pipe(fd[++i]);
+			pid = fork();
+			if (!pid)
+			{
+				close(fd[i][0]);
+				close(fd[i - 1][1]);
+				s = cmd_path(cmd);
+				dup2(fd[i - 1][0], cmd->in);
+				dup2(fd[i][1], cmd->out);
+				close(fd[i][1]);
+				close(fd[i - 1][0]);
+				execve(s, cmd->args, envv);
+				exit(0);
+			}
+			else
+				close(fd[i - 1][1]);
+		}
 	}
-	if (a != 5)
-		return ;
-	envv = put_in_tab();
-	pid = fork();
-	if (!pid)
+	i = cmd_list_size(tmp) - 2;
+	while (i >= 0)
 	{
-		execve(s, cmd_args, envv);
-		exit(0);
+		close(fd[i][0]);
+		close(fd[i][1]);
+		i--;
 	}
-	else
-		waitpid(pid, NULL, 0);
-	// int	fd_test = open("test.txt", O_RDWR);
-	// s = malloc(strlen("hi from child\n"));
-	// pipe(pipe_fd);
-	// pid = fork();
-	// if (!pid)
-	// {
-	// 	close(pipe_fd[0]);
-	// 	write(pipe_fd[1], "hi from child\n", strlen("hi from child\n"));
-	// 	close(pipe_fd[1]);
-	// }
-	// else if (pid)
-	// {
-	// 	close(pipe_fd[1]);
-	// 	read(pipe_fd[0], s, strlen("hi from child\n"));
-	// 	printf("->%s", s);
-	// 	close(pipe_fd[0]);
-	// }
+	while (wait(NULL) > 0)
+		;
+	return ;
+}
+
+void	pipe_it(t_cmd *cmd)
+{
+	int		pid;
+	char	*s;
+	char	**envv;
+
+	envv = put_in_tab();
+	s = cmd_path(cmd);
+	if (!cmd->next)
+	{
+		pid = fork();
+		if (!pid)
+		{
+			dup2(cmd->in, 0);
+			dup2(cmd->out, 1);
+			execve(s, cmd->args, envv);
+			exit(0);
+		}
+		else
+		{
+			waitpid(pid, NULL, 0);
+			return ;
+		}
+	}
+	pipes(cmd, envv);
 }
