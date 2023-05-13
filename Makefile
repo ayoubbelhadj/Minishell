@@ -6,7 +6,7 @@
 #    By: abelhadj <abelhadj@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/17 22:42:33 by aoudija           #+#    #+#              #
-#    Updated: 2023/05/11 14:36:58 by abelhadj         ###   ########.fr        #
+#    Updated: 2023/05/13 17:41:07 by abelhadj         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,7 +33,8 @@ LIBFT = $(addprefix  libft/, ft_charjoin ft_isdigit ft_memset  ft_isprint ft_put
 PARSING	= $(addprefix  parsing/, expand/ft_expand expand/ft_expand_utils expand/ft_expand_name\
 			lexer/ft_add_data lexer/ft_cmd_type\
 			utils/ft_list_ft utils/ft_utils utils/ft_data_checker utils/ft_cmd_ft utils/ft_data_checker2 utils/ft_inoutfile\
-			ft_start ft_tokenizer ft_get_cmd)
+			utils/ft_heredoc_utils\
+			ft_start ft_tokenizer ft_get_cmd ft_heredoc)
 
 FILES = main $(LIBFT) $(PARSING)
 

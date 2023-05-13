@@ -6,7 +6,7 @@
 /*   By: abelhadj <abelhadj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 17:38:14 by abelhadj          #+#    #+#             */
-/*   Updated: 2023/05/09 16:46:04 by abelhadj         ###   ########.fr       */
+/*   Updated: 2023/05/13 19:02:45 by abelhadj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@ int	ft_check_cmd(char *str)
 	{
 		if (!str[1])
 		{
-			(ft_putstr_fd("\033[0;31mmy_shell: ", 2), ft_putstr_fd(str, 2));
-			ft_putstr_fd(" :is a directory\033[0;0m\n", 2);
+			(ft_putstr_fd("bashn't: ", 2), ft_putstr_fd(str, 2));
+			ft_putstr_fd(" :is a directory\n", 2);
 			return (g_stuct.exit_status = CMD_NOT_EXECUT, 1);
 		}
 		else
@@ -43,8 +43,8 @@ int	ft_check_cmd(char *str)
 			dr = opendir(str);
 			if (dr)
 			{
-				(ft_putstr_fd("\033[0;31mmy_shell: ", 2), ft_putstr_fd(str, 2));
-				ft_putstr_fd(" :is a directory\033[0;0m\n", 2);
+				(ft_putstr_fd("bashn't: ", 2), ft_putstr_fd(str, 2));
+				ft_putstr_fd(" :is a directory\n", 2);
 				if (dr)
 					closedir(dr);
 				return (g_stuct.exit_status = CMD_NOT_EXECUT, 1);

@@ -6,7 +6,7 @@
 /*   By: abelhadj <abelhadj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 22:02:39 by aoudija           #+#    #+#             */
-/*   Updated: 2023/05/11 14:48:25 by abelhadj         ###   ########.fr       */
+/*   Updated: 2023/05/13 19:04:44 by abelhadj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,28 +44,51 @@ void	ft_env0(void)
 	}
 }
 
+void	handler(int sig)
+{
+	if (sig == SIGINT)
+	{
+		g_stuct.exit_status = 1;
+		ft_putstr_fd("\n", 1);
+		rl_replace_line("", 1);
+		rl_on_new_line();
+	}
+	rl_on_new_line();
+	rl_redisplay();
+}
+
+void	handle_signals(void)
+{
+	dup2(g_stuct.fstdin, 0);
+	dup2(g_stuct.fstdout, 1);
+	g_stuct.sig = 0;
+	signal(SIGQUIT, handler);
+	signal(SIGINT, handler);
+}
+
 int	main(int ac, char **av, char **env)
 {
 	t_token	*data;
 	t_cmd	*cmd;
 	char	*line;
 
-	cmd = NULL;
 	ft_env(ac, av, env);
-	signal(SIGQUIT, SIG_IGN);
 	data = malloc(sizeof(data));
+	g_stuct.fstdin = dup(0);
+	g_stuct.fstdout = dup(1);
 	while (1)
 	{
-		signal(SIGINT, sigint_handler);
-		line = readline("\033[1;36m my_shell$ \033[0m");
+		handle_signals();
+		line = readline("\033[1;36m bashn't$ \033[0m");
 		if (!line)
 			break ;
 		if (line[0])
 		{
 			add_history(line);
 			if (ft_start(line, data, &cmd))
-				printf("yes\n");
-			ft_cmdclear(&cmd);
+			{
+				ft_cmdclear(&cmd);
+			}
 		}
 		free(line);
 	}
