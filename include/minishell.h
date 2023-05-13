@@ -6,7 +6,7 @@
 /*   By: abelhadj <abelhadj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 06:26:45 by abelhadj          #+#    #+#             */
-/*   Updated: 2023/05/11 14:35:53 by abelhadj         ###   ########.fr       */
+/*   Updated: 2023/05/13 17:39:11 by abelhadj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 # include <string.h>
 # include <signal.h>
 # include <dirent.h>
+# include <termios.h>
 # include "../libft/libft.h"
 
 typedef enum e_type
@@ -63,6 +64,9 @@ typedef struct s_token
 typedef struct s_eg
 {
 	t_list			*env;
+	int				sig;
+	int				fstdin;
+	int				fstdout;
 	int				exit_status;
 }					t_eg;
 t_eg	g_stuct;
@@ -116,5 +120,13 @@ char	*ft_getvalue(char *value, int *i);
 char	*ft_dollarvalue(char *str);
 char	*ft_expand_name(char *value);
 int		ft_isquotein(char *str);
+
+/* herdoc */
+int		ft_heredoc(t_token **data);
+char	*ft_heredocfile(char *delimiter);
+int		ft_heredocwrite(char *line, char *del, int fd, char *delimiter);
+void	ft_heredocsig(int sig);
+char	*ft_expand_delimiter(char *delimiter);
+char	*ft_namegenerator(void);
 
 #endif

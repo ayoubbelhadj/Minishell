@@ -6,7 +6,7 @@
 /*   By: abelhadj <abelhadj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 21:17:18 by abelhadj          #+#    #+#             */
-/*   Updated: 2023/05/09 16:46:07 by abelhadj         ###   ########.fr       */
+/*   Updated: 2023/05/13 19:02:45 by abelhadj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	ft_get_infile(t_cmd **cmd, char *value)
 {
 	if (!ft_strcmp(value, "\b"))
 	{
-		ft_putstr_fd("\033[0;31mmy_shell: ambiguous redirect\n\033[0m", 2);
+		ft_putstr_fd("bashn't: ambiguous redirect\n", 2);
 		(*cmd)->in = -1;
 		(*cmd)->error = 0;
 	}
@@ -25,9 +25,8 @@ void	ft_get_infile(t_cmd **cmd, char *value)
 		(*cmd)->in = open(value, O_RDONLY);
 		if ((*cmd)->in == -1)
 		{
-			ft_putstr_fd("\033[0;31mmy_shell: ", 2);
+			ft_putstr_fd("bashn't: ", 2);
 			perror(value);
-			ft_putstr_fd("\033[0m", 2);
 			(*cmd)->error = 0;
 		}
 	}
@@ -37,7 +36,7 @@ void	ft_get_outfile(t_cmd **cmd, char *value)
 {
 	if (!ft_strcmp(value, "\b"))
 	{
-		ft_putstr_fd("\033[0;31mmy_shell: ambiguous redirect\n\033[0m", 2);
+		ft_putstr_fd("bashn't: ambiguous redirect\n", 2);
 		(*cmd)->out = -1;
 		(*cmd)->error = 0;
 	}
@@ -46,9 +45,8 @@ void	ft_get_outfile(t_cmd **cmd, char *value)
 		(*cmd)->out = open(value, O_CREAT | O_TRUNC | O_RDWR, 0777);
 		if ((*cmd)->out == -1)
 		{
-			ft_putstr_fd("\033[0;31mmy_shell: ", 2);
+			ft_putstr_fd("bashn't: ", 2);
 			perror(value);
-			ft_putstr_fd("\033[0m", 2);
 			(*cmd)->error = 0;
 		}
 	}
@@ -58,7 +56,7 @@ void	ft_get_append(t_cmd **cmd, char *value)
 {
 	if (!ft_strcmp(value, "\b"))
 	{
-		ft_putstr_fd("\033[0;31mmy_shell: ambiguous redirect\n\033[0m", 2);
+		ft_putstr_fd("bashn't: ambiguous redirect\n", 2);
 		(*cmd)->out = -1;
 		(*cmd)->error = 0;
 	}
@@ -67,9 +65,8 @@ void	ft_get_append(t_cmd **cmd, char *value)
 		(*cmd)->out = open(value, O_CREAT | O_APPEND | O_RDWR, 0777);
 		if ((*cmd)->out == -1)
 		{
-			ft_putstr_fd("\033[0;31mmy_shell: ", 2);
+			ft_putstr_fd("bashn't: ", 2);
 			perror(value);
-			ft_putstr_fd("\033[0m", 2);
 			(*cmd)->error = 0;
 		}
 	}
