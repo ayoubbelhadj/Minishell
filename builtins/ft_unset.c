@@ -6,11 +6,26 @@
 /*   By: aoudija <aoudija@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 13:35:11 by aoudija           #+#    #+#             */
-/*   Updated: 2023/05/05 17:27:22 by aoudija          ###   ########.fr       */
+/*   Updated: 2023/05/14 14:13:49 by aoudija          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+
+void	shut_up_norma(t_list **tenv, t_list **temp)
+{
+	if ((*tenv)->next)
+	{
+		(*tenv)->content = (*tenv)->next->content;
+		(*tenv)->next = (*tenv)->next->next;
+	}
+	if (!(*tenv)->next)
+	{
+		while ((*temp)->next->next)
+			(*temp) = (*temp)->next;
+		(*temp)->next = NULL;
+	}
+}
 
 void	lenv(char	*arg)
 {
@@ -24,19 +39,7 @@ void	lenv(char	*arg)
 	{
 		t = ft_substr(tenv->content, 0, strlen_var(tenv->content));
 		if (!ft_strcmp(t, arg))
-		{
-			if (tenv->next)
-			{
-				tenv->content = tenv->next->content;
-				tenv->next = tenv->next->next;
-			}
-			if (!tenv->next)
-			{
-				while (temp->next->next)
-					temp = temp->next;
-				temp->next = NULL;
-			}
-		}
+			shut_up_norma(&tenv, &temp);
 		free(t);
 		tenv = tenv->next;
 	}
@@ -72,16 +75,19 @@ void	lexp(char *arg)
 	}
 }
 
-void	ft_unset(char *cmd)
+void	ft_unset(t_cmd *cmd)
 {
-	char	**arg;
+	int	i;
 
-	arg = ft_split(cmd, ' ');
-	if (!arg[1])
-	{
-		ft_free(arg);
+	i = 0;
+	if (!cmd->args[1])
 		return ;
+	while (cmd->args[++i])
+	{
+		if (var_is_valid(cmd, cmd->args[i]))
+		{
+			lenv(cmd->args[i]);
+			lexp(cmd->args[i]);
+		}
 	}
-	lenv(arg[1]);
-	lexp(arg[1]);
 }

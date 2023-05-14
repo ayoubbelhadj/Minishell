@@ -1,30 +1,47 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtins.c                                         :+:      :+:    :+:   */
+/*   ft_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aoudija <aoudija@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 22:02:28 by aoudija           #+#    #+#             */
-/*   Updated: 2023/05/05 17:27:22 by aoudija          ###   ########.fr       */
+/*   Updated: 2023/05/13 11:44:23 by aoudija          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-void	ft_echo(char *cmd)
+int	n_or_not(char	**args, int i)
 {
-	printf("%s", cmd + 5);
+	size_t	j;
+
+	j = 1;
+	while (args[i][++j] == 'n' && args[i][j])
+		;
+	return (j == ft_strlen(args[i]));
 }
 
-void	ft_env(void)
+void	ft_echo(t_cmd *cmd)
 {
-	t_list	*temp;
+	int		i;
+	int		j;
 
-	temp = g_data.env;
-	while (temp)
+	i = 0;
+	j = 1;
+	while (cmd->args[++i] && cmd->args[i][0] == '-' && cmd->args[i][1] == 'n'
+		&& n_or_not(cmd->args, i))
+		j = 0;
+	i--;
+	if (j == 0)
 	{
-		printf("%s\n", temp->content);
-		temp = temp->next;
+		while (cmd->args[++i])
+			write(cmd->out, cmd->args[i], ft_strlen(cmd->args[i]));
+	}
+	else
+	{
+		while (cmd->args[++i])
+			write(cmd->out, cmd->args[i], ft_strlen(cmd->args[i]));
+		write(cmd->out, "\n", 1);
 	}
 }

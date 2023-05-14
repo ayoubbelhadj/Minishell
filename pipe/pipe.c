@@ -6,7 +6,7 @@
 /*   By: aoudija <aoudija@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 16:13:14 by aoudija           #+#    #+#             */
-/*   Updated: 2023/05/12 19:52:36 by aoudija          ###   ########.fr       */
+/*   Updated: 2023/05/14 08:33:16 by aoudija          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,20 +35,20 @@ void	pipe_it(t_cmd *cmd, char **envv)
 		{
 			if (cmd->in != -1 || cmd->out != -1)
 			{
-				s = grant_access(cmd);
-				if (!s)
-					return ;
 				pipe(fd[i]);
 				pid = fork();
 				if (!pid)
 				{
+					s = grant_access(cmd);
+					if (!s)
+						exit(EXIT_FAILURE);
 					dup2(cmd->in, 0);
 					dup2(cmd->out, 1);
 					close(fd[i][0]);
 					dup2(fd[i][1], cmd->out);
 					close(fd[i][1]);
-					execve(s, cmd->args, envv);
-					perror("");
+					if (cmd->out != -1)
+						execve(s, cmd->args, envv);
 					exit(EXIT_FAILURE);
 				}
 			}
@@ -58,22 +58,21 @@ void	pipe_it(t_cmd *cmd, char **envv)
 		{
 			if (!cmd->args)
 				return ;
-			if (cmd->in != -1 || cmd->out != -1)
+			if (cmd->in != -1)
 			{
-				s = grant_access(cmd);
-				if (!s)
-					return ;
 				pid = fork();
 				if (!pid)
 				{
+					s = grant_access(cmd);
+					if (!s)
+						exit(EXIT_FAILURE);
 					dup2(cmd->in, 0);
 					close(fd[i][1]);
 					dup2(fd[i][0], cmd->in);
 					dup2(cmd->out, 1);
 					close(fd[i][0]);
-					execve(s, cmd->args, envv);
-					printf("-> %s\n", s);
-					perror("");
+					if (cmd->out != -1)
+						execve(s, cmd->args, envv);
 					exit(EXIT_FAILURE);
 				}
 			}
@@ -82,27 +81,26 @@ void	pipe_it(t_cmd *cmd, char **envv)
 		{
 			if (cmd->in != -1 || cmd->out != -1)
 			{
-				s = grant_access(cmd);
-				if (s)
+				pipe(fd[++i]);
+				pid = fork();
+				if (!pid)
 				{
-					pipe(fd[++i]);
-					pid = fork();
-					if (!pid)
-					{
-						dup2(cmd->out, 1);
-						close(fd[i][0]);
-						close(fd[i - 1][1]);
-						dup2(fd[i - 1][0], cmd->in);
-						dup2(fd[i][1], cmd->out);
-						close(fd[i][1]);
-						close(fd[i - 1][0]);
-						execve(s, cmd->args, envv);
-						perror("");
+					s = grant_access(cmd);
+					if (!s)
 						exit(EXIT_FAILURE);
-					}
-					else
-						close(fd[i - 1][1]);
+					dup2(cmd->out, 1);
+					close(fd[i][0]);
+					close(fd[i - 1][1]);
+					dup2(fd[i - 1][0], cmd->in);
+					dup2(fd[i][1], cmd->out);
+					close(fd[i][1]);
+					close(fd[i - 1][0]);
+					if (cmd->out != -1)
+						execve(s, cmd->args, envv);
+					exit(EXIT_FAILURE);
 				}
+				else
+					close(fd[i - 1][1]);
 			}
 		}
 	}
@@ -128,7 +126,7 @@ void	execute_it(t_cmd *cmd)
 	envv = put_in_tab();
 	if (!cmd->next)
 	{
-		if (cmd->in != -1 || cmd->out != -1)
+		if (cmd->in == -1 || cmd->out == -1)
 			return ;
 		if (!cmd->args)
 			return ;

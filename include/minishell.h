@@ -6,7 +6,7 @@
 /*   By: aoudija <aoudija@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 06:26:45 by abelhadj          #+#    #+#             */
-/*   Updated: 2023/05/12 13:05:19 by aoudija          ###   ########.fr       */
+/*   Updated: 2023/05/14 14:54:18 by aoudija          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,51 +85,73 @@ void		ft_cmddeloner(t_cmd *cmd);
 void		ft_cmdclear(t_cmd	**cmd);
 int			ft_cmdsize(t_cmd *cmd);
 
-/* parsing */
-char		*ft_expand(char *value);
-void		ft_get_cmd(t_token **data, t_cmd **cmd);
-int			ft_start(char *line, t_token *data, t_cmd **cmd);
-t_token		*ft_datanew(char *value);
-void		ft_data_addback(t_token **data, t_token *new);
-int			ft_tokenizer(char *cmd, t_token **data);
-int			check_syntax(char *cmd);
-int			ft_quotes(char *cmd, int index);
-int			ft_red_check(char c, char *cmd, int index);
-void		ft_add_operator(t_token **data, char *cmd, int *i);
-void		ft_add_str(t_token **data, char *cmd, int *index);
-void		ft_cmd_type(t_token **data);
-int			ft_check_data_syntax(t_token **data);
-int			ft_check_cmd(char *str);
-int			ft_ischard(int c);
-void		ft_get_infile(t_cmd **cmd, char *value);
-void		ft_get_outfile(t_cmd **cmd, char *value);
-void		ft_get_append(t_cmd **cmd, char *value);
-void		ft_inoutfile(t_token *tmp, t_cmd **cmd);
-void		ft_getchar(char	*value, char **str, int i);
-void		ft_getvarvalue(char *value, int *i, char **str, int	*flag);
-char		*ft_getvalue(char *value, int *i);
-char		*ft_dollarvalue(char *str);
-char		*ft_expand_name(char *value);
-int			ft_isquotein(char *str);
+/* parcing */
+char	*ft_expand(char *value);
+void	ft_get_cmd(t_token **data, t_cmd **cmd);
+int		ft_start(char *line, t_token *data, t_cmd **cmd);
+t_token	*ft_datanew(char *value);
+void	ft_data_addback(t_token **data, t_token *new);
+int		ft_tokenizer(char *cmd, t_token **data);
+int		check_syntax(char *cmd);
+int		ft_quotes(char *cmd, int index);
+int		ft_red_check(char c, char *cmd, int index);
+void	ft_add_operator(t_token **data, char *cmd, int *i);
+void	ft_add_str(t_token **data, char *cmd, int *index);
+void	ft_cmd_type(t_token **data);
+int		ft_check_data_syntax(t_token **data);
+int		ft_check_cmd(char *str);
+int		ft_ischard(int c);
+void	ft_get_infile(t_cmd **cmd, char *value);
+void	ft_get_outfile(t_cmd **cmd, char *value);
+void	ft_get_append(t_cmd **cmd, char *value);
+void	ft_inoutfile(t_token *tmp, t_cmd **cmd);
+void	ft_getchar(char	*value, char **str, int i);
+void	ft_getvarvalue(char *value, int *i, char **str, int	*flag);
+char	*ft_getvalue(char *value, int *i);
+char	*ft_dollarvalue(char *str);
+char	*ft_expand_name(char *value);
+int		ft_isquotein(char *str);
+
+/* herdoc */
+int		ft_heredoc(t_token **data);
+char	*ft_heredocfile(char *delimiter);
+int		ft_heredocwrite(char *line, char *del, int fd, char *delimiter);
+void	ft_heredocsig(int sig);
+char	*ft_expand_delimiter(char *delimiter);
+char	*ft_namegenerator(void);
 
 /*------ EXECUTION---------*/
 
-void		ft_echo(char *cmd);
 typedef struct s_e_data
 {
 	t_list	*env;
 	t_list	*exp;
 	int		exit_status;
+	int				sig;
+	int				fstdin;
+	int				fstdout;
 }			t_e_data;
 void		*ft_free(char **table);
 char		**ft_strdupdup(char **tab);
 void		execute(t_cmd	*cmd);
 void		ft_env(void);
-void		ft_echo(char *cmd);
-void		ft_export(char *cmd);
-void		ft_unset(char *cmd);
-void		fill_env(char **envv);
+void		ft_echo(t_cmd *cmd);
+
+int			var_is_valid(t_cmd *cmd, char *args);
+
 void		fill_export(void);
+char		*exp_new_content(char *arg);
+void		export_norm1(t_cmd *cmd, int i);
+void		export_norm2(t_cmd *cmd, int i);
+int			exp_matching_vars(t_cmd *cmd, int i);
+int			env_new_exp(t_cmd *cmd, int i, int c);
+void		ft_export(t_cmd	*cmd);
+
+void		cd(t_cmd *cmd);
+
+void		ft_unset(t_cmd *cmd);
+void		fill_env(char **envv);
+
 t_e_data	g_data;
 void		sort_exp(void);
 

@@ -6,7 +6,7 @@
 /*   By: aoudija <aoudija@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 12:18:34 by abelhadj          #+#    #+#             */
-/*   Updated: 2023/05/11 15:07:15 by aoudija          ###   ########.fr       */
+/*   Updated: 2023/05/13 20:05:15 by aoudija          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ int	ft_check_herdoc(t_token **data)
 	}
 	if (i > 16)
 	{
-		ft_putstr_fd("\033[0;31mmy_shell: maximum here-document count"
-			" exceeded\033[0;0m\n", 2);
+		ft_putstr_fd("bashn't: maximum here-document count"
+			" exceeded\n", 2);
 		return (1);
 	}
 	return (0);
@@ -45,14 +45,14 @@ int	ft_check_pipe(t_token **data)
 		{
 			if (!tmp->next || !tmp->prev)
 			{
-				ft_putstr_fd("\033[0;31mmy_shell: syntax error" \
-						" near unexpected token '|'\033[0;0m\n", 2);
+				ft_putstr_fd("bashn't: syntax error" \
+						" near unexpected token '|'\n", 2);
 				return (1);
 			}
 			else if (tmp->next && tmp->next->type == PIPE)
 			{
-				ft_putstr_fd("\033[0;31mmy_shell: syntax error" \
-					" near unexpected token '||'\033[0;0m\n", 2);
+				ft_putstr_fd("bashn't: syntax error" \
+					" near unexpected token '||'\n", 2);
 				return (1);
 			}
 		}
@@ -78,17 +78,17 @@ int	ft_check_red(t_token **data)
 	{
 		if (ft_isred(tmp->type) && !tmp->next)
 		{
-			ft_putstr_fd("\033[0;31mmy_shell: syntax error near" \
-				" unexpected token 'newline'\033[0;0m\n", 2);
+			ft_putstr_fd("bashn't: syntax error near" \
+				" unexpected token 'newline'\n", 2);
 			return (1);
 		}
 		if (ft_isred(tmp->type) && tmp->next
 			&& (ft_isred(tmp->next->type) || tmp->next->type == PIPE))
 		{
-			ft_putstr_fd("\033[0;31mmy_shell: syntax error near" \
+			ft_putstr_fd("bashn't: syntax error near" \
 				" unexpected token '", 2);
 			ft_putstr_fd(tmp->next->value, 2);
-			ft_putstr_fd("'\033[0;0m\n", 2);
+			ft_putstr_fd("'\n", 2);
 			return (1);
 		}
 		tmp = tmp->next;

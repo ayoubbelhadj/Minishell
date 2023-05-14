@@ -6,11 +6,11 @@
 /*   By: aoudija <aoudija@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/29 12:51:51 by aoudija           #+#    #+#             */
-/*   Updated: 2023/05/05 17:27:22 by aoudija          ###   ########.fr       */
+/*   Updated: 2023/05/14 18:49:11 by aoudija          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "../../include/minishell.h"
 
 void	sort_exp(void)
 {
@@ -56,7 +56,8 @@ void	fill_export(void)
 		d = ft_strjoin_frees1(d, t);
 		free(t);
 		t = ft_strjoin_frees1(d, "\"");
-		ft_lstadd_back(&g_data.exp, ft_lstnew(ft_strjoin("declare -x ", t)));
+		d = ft_strjoin("declare -x ", t);
+		ft_lstadd_back(&g_data.exp, ft_lstnew(d));
 		free(t);
 		temp = temp->next;
 	}

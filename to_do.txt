@@ -6,12 +6,14 @@
 #    By: aoudija <aoudija@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/11 14:53:06 by aoudija           #+#    #+#              #
-#    Updated: 2023/05/12 12:42:00 by aoudija          ###   ########.fr        #
+#    Updated: 2023/05/13 12:13:55 by aoudija          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-
--exit_status for pipe_it, perror...
--builtins : redo with new parser && free memory...
--check if in_out idea is possible for heredoc...
+-exit_status for pipe_it, perror... -> check leaks for sure 
+                                                    (and maybe exit status for "echo $?") : one day spent.
+                                                    + (check grant_access algo -> maybe there's a better way )
+-builtins : redo with new parser && free memory...(on_going)
+-check if in_out idea is possible for heredoc... -> |not yet|
 -last but not least check_NORMA.
+- 7 days...

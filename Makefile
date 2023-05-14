@@ -6,7 +6,7 @@
 #    By: aoudija <aoudija@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/17 22:42:33 by aoudija           #+#    #+#              #
-#    Updated: 2023/05/12 13:06:44 by aoudija          ###   ########.fr        #
+#    Updated: 2023/05/14 17:23:36 by aoudija          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,10 +33,12 @@ LIBFT = $(addprefix  libft/, ft_isdigit ft_memset  ft_isprint ft_putendl_fd ft_i
 PARSING	= $(addprefix  parsing/, expand/ft_expand expand/ft_expand_utils expand/ft_expand_name\
 			lexer/ft_add_data lexer/ft_cmd_type\
 			utils/ft_list_ft utils/ft_utils utils/ft_data_checker utils/ft_cmd_ft utils/ft_data_checker2 utils/ft_inoutfile\
-			ft_start ft_tokenizer ft_get_cmd)
+			utils/ft_heredoc_utils\
+			ft_start ft_tokenizer ft_get_cmd ft_heredoc)
 		
-FILES = main builtins/builtins builtins/fill_env builtins/ft_export builtins/ft_unset\
-		builtins/fill_export pipe/pipe pipe/pipe_utils pipe/cmd_list_size pipe/grant_access execute $(LIBFT) $(PARSING)
+FILES = main builtins/ft_echo builtins/ft_env builtins/ft_cd builtins/export/export_utils \
+		builtins/export/ft_export builtins/ft_unset builtins/export/fill_export \
+		pipe/pipe pipe/pipe_utils pipe/cmd_list_size pipe/grant_access execute $(LIBFT) $(PARSING)
 
 SRC		= $(FILES:=.c)
 OBJ		= $(FILES:=.o)

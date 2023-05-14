@@ -1,55 +1,59 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_data_checker2.c                                 :+:      :+:    :+:   */
+/*   ft_heredoc_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aoudija <aoudija@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/07 17:38:14 by abelhadj          #+#    #+#             */
+/*   Created: 2023/05/13 17:39:52 by abelhadj          #+#    #+#             */
 /*   Updated: 2023/05/13 20:05:15 by aoudija          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include"../../include/minishell.h"
 
-int	ft_isdir(char *str)
+char	*ft_namegenerator(void)
 {
-	int	i;
+	char	*name;
+	char	*num;
+	int		i;
 
 	i = 0;
-	while (str[i])
+	num = ft_itoa(i);
+	name = ft_strjoin("/tmp/herdoc_", num);
+	free(num);
+	while (!access(name, F_OK))
 	{
-		if (str[i] == '/')
-			return (1);
-		i++;
+		free(name);
+		num = ft_itoa(i++);
+		name = ft_strjoin("/tmp/herdoc_", num);
+		free(num);
 	}
-	return (0);
+	return (name);
 }
 
-int	ft_check_cmd(char *str)
+char	*ft_expand_delimiter(char *delimiter)
 {
-	DIR		*dr;
+	char	*str;
+	int		i;
 
-	if (str && ft_isdir(str))
+	i = 0;
+	str = ft_strdup("");
+	while (delimiter[i])
 	{
-		if (!str[1])
-		{
-			(ft_putstr_fd("bashn't: ", 2), ft_putstr_fd(str, 2));
-			ft_putstr_fd(" :is a directory\n", 2);
-			return (g_data.exit_status = CMD_NOT_EXECUT, 1);
-		}
-		else
-		{
-			dr = opendir(str);
-			if (dr)
-			{
-				(ft_putstr_fd("bashn't: ", 2), ft_putstr_fd(str, 2));
-				ft_putstr_fd(" :is a directory\n", 2);
-				if (dr)
-					closedir(dr);
-				return (g_data.exit_status = CMD_NOT_EXECUT, 1);
-			}
-		}
+		ft_getchar(delimiter, &str, i);
+		i++;
 	}
-	return (0);
+	return (str);
+}
+
+void	ft_heredocsig(int sig)
+{
+	if (sig == SIGINT)
+	{
+		g_data.sig = 1;
+		rl_replace_line("", 0);
+		printf("\n");
+		close(0);
+	}
 }
