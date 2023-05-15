@@ -6,7 +6,7 @@
 #    By: aoudija <aoudija@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/11 14:53:06 by aoudija           #+#    #+#              #
-#    Updated: 2023/05/13 12:13:55 by aoudija          ###   ########.fr        #
+#    Updated: 2023/05/15 07:58:44 by aoudija          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,4 +16,4 @@
 -builtins : redo with new parser && free memory...(on_going)
 -check if in_out idea is possible for heredoc... -> |not yet|
 -last but not least check_NORMA.
-- 7 days...
+- 5 days...->>> builtins are done;`

@@ -6,7 +6,7 @@
 /*   By: aoudija <aoudija@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 06:26:45 by abelhadj          #+#    #+#             */
-/*   Updated: 2023/05/14 14:54:18 by aoudija          ###   ########.fr       */
+/*   Updated: 2023/05/14 22:12:52 by aoudija          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,11 +79,11 @@ void		ft_data_addback(t_token **data, t_token *new);
 t_token		*ft_datanew(char *value);
 
 /* cmdlist */
-t_cmd		*ft_cmdlast(t_cmd *cmd);
-void		ft_cmdaddlist(t_cmd **cmd, t_cmd *new);
-void		ft_cmddeloner(t_cmd *cmd);
-void		ft_cmdclear(t_cmd	**cmd);
-int			ft_cmdsize(t_cmd *cmd);
+t_cmd	*ft_cmdlast(t_cmd *cmd);
+void	ft_cmdaddlist(t_cmd **cmd, t_cmd *new);
+void	ft_cmddeloner(t_cmd *cmd);
+void	ft_cmdclear(t_cmd	**cmd);
+int		ft_cmdsize(t_cmd *cmd);
 
 /* parcing */
 char	*ft_expand(char *value);
@@ -131,32 +131,39 @@ typedef struct s_e_data
 	int				fstdin;
 	int				fstdout;
 }			t_e_data;
+t_e_data	g_data;
+
 void		*ft_free(char **table);
 char		**ft_strdupdup(char **tab);
 void		execute(t_cmd	*cmd);
-void		ft_env(void);
-void		ft_echo(t_cmd *cmd);
 
 int			var_is_valid(t_cmd *cmd, char *args);
-
+/*export*/
 void		fill_export(void);
+void		sort_exp(void);
 char		*exp_new_content(char *arg);
-void		export_norm1(t_cmd *cmd, int i);
-void		export_norm2(t_cmd *cmd, int i);
 int			exp_matching_vars(t_cmd *cmd, int i);
 int			env_new_exp(t_cmd *cmd, int i, int c);
 void		ft_export(t_cmd	*cmd);
-
+void		export_norm1(t_cmd *cmd, int i);
+void		export_norm2(t_cmd *cmd, int i);
+/*cd*/
+void		search_var(char *str, char *new);
+void		change_env(char *str, char *new);
+void		change_exp(char *str, char *new);
+void		norma_cd_1(t_cmd *cmd, char *cwd, int i);
+void		norma_cd_2(char *cwd);
+int			found_var(char *var);
 void		cd(t_cmd *cmd);
-
+/*unset*/
 void		ft_unset(t_cmd *cmd);
 void		fill_env(char **envv);
 
-t_e_data	g_data;
-void		sort_exp(void);
+void		pwd(t_cmd *cmd);
+void		ft_env(void);
+void		ft_echo(t_cmd *cmd);
 
-//-----PIPE-----
-
+/*pipe*/
 void		execute_it(t_cmd *cmd);
 char		**put_in_tab(void);
 char		**path_env(void);

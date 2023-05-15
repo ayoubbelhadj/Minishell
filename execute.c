@@ -6,7 +6,7 @@
 /*   By: aoudija <aoudija@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/20 23:52:49 by aoudija           #+#    #+#             */
-/*   Updated: 2023/05/14 14:59:34 by aoudija          ###   ########.fr       */
+/*   Updated: 2023/05/14 22:13:32 by aoudija          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	execute(t_cmd	*cmd)
 	else if (!ft_strcmp("cd", cmd->cmd))
 		cd(cmd);
 	else if (!ft_strcmp("pwd", cmd->cmd))
-		printf("%s\n",getenv("PWD"));
+		pwd(cmd);
 	else
 		execute_it(cmd);
 }
