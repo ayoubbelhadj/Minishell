@@ -6,7 +6,7 @@
 /*   By: abelhadj <abelhadj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 16:37:21 by abelhadj          #+#    #+#             */
-/*   Updated: 2023/05/14 18:14:52 by abelhadj         ###   ########.fr       */
+/*   Updated: 2023/05/16 17:37:03 by abelhadj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,28 +39,20 @@ void	ft_cmd(char *value, t_cmd **cmd_tmp)
 void	ft_expand_check(t_token	*tmp, t_cmd *cmd_tmp)
 {
 	int		i;
-	int		flag;
 	char	**ok;
-	char	*tmp_value;
 
-	flag = 0;
-	if (tmp->value[0] == '$')
-		flag = 1;
 	i = -1;
-	tmp_value = ft_expand(tmp->value);
-	ok = (char **)malloc(sizeof(char *));
 	if (tmp->type == CMD)
-		ft_cmd(tmp_value, &cmd_tmp);
-	if (flag && ft_strchr(tmp_value, ' '))
+		ft_cmd(tmp->value, &cmd_tmp);
+	if (tmp->flag && ft_strchr(tmp->value, ' '))
 	{
-		ok = ft_split(tmp_value, ' ');
+		ok = ft_split(tmp->value, ' ');
 		while (ok[++i])
 			cmd_tmp->args = ft_realloc(cmd_tmp->args, ok[i]);
 		ft_freetab(ok);
 	}
 	else
-		cmd_tmp->args = ft_realloc(cmd_tmp->args, tmp_value);
-	free(tmp_value);
+		cmd_tmp->args = ft_realloc(cmd_tmp->args, tmp->value);
 }
 
 void	ft_get_cmd(t_token **data, t_cmd **cmd)

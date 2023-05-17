@@ -6,7 +6,7 @@
 /*   By: abelhadj <abelhadj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 06:26:45 by abelhadj          #+#    #+#             */
-/*   Updated: 2023/05/13 17:39:11 by abelhadj         ###   ########.fr       */
+/*   Updated: 2023/05/16 17:00:48 by abelhadj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ typedef struct s_token
 {
 	char			*value;
 	t_type			type;
+	int				flag;
 	struct s_token	*prev;
 	struct s_token	*next;
 }					t_token;
