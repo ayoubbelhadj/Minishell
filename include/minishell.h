@@ -6,7 +6,7 @@
 /*   By: abelhadj <abelhadj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 06:26:45 by abelhadj          #+#    #+#             */
-/*   Updated: 2023/05/16 17:00:48 by abelhadj         ###   ########.fr       */
+/*   Updated: 2023/05/22 16:54:04 by abelhadj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ typedef struct s_token
 {
 	char			*value;
 	t_type			type;
+	int				err; //ok
 	int				flag;
 	struct s_token	*prev;
 	struct s_token	*next;
@@ -111,9 +112,9 @@ void	ft_cmd_type(t_token **data);
 int		ft_check_data_syntax(t_token **data);
 int		ft_check_cmd(char *str);
 int		ft_ischard(int c);
-void	ft_get_infile(t_cmd **cmd, char *value);
-void	ft_get_outfile(t_cmd **cmd, char *value);
-void	ft_get_append(t_cmd **cmd, char *value);
+void	ft_get_infile(t_cmd **cmd, char *value, t_token *tmp); //ok
+void	ft_get_outfile(t_cmd **cmd, char *value, t_token *tmp);//ok
+void	ft_get_append(t_cmd **cmd, char *value, t_token *tmp);//ok
 void	ft_inoutfile(t_token *tmp, t_cmd **cmd);
 void	ft_getchar(char	*value, char **str, int i);
 void	ft_getvarvalue(char *value, int *i, char **str, int	*flag);

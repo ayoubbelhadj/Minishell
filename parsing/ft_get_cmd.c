@@ -6,7 +6,7 @@
 /*   By: abelhadj <abelhadj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 16:37:21 by abelhadj          #+#    #+#             */
-/*   Updated: 2023/05/16 17:37:03 by abelhadj         ###   ########.fr       */
+/*   Updated: 2023/05/22 16:51:40 by abelhadj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,11 @@ void	ft_cmdadd(t_cmd **cmd, t_cmd **new)
 	ft_init_cmd(*new);
 }
 
-void	ft_cmd(char *value, t_cmd **cmd_tmp)
+void	ft_cmd(t_cmd **cmd_tmp)
 {
-	(*cmd_tmp)->cmd = ft_strdup(value);
+	if ((*cmd_tmp)->cmd)
+		free((*cmd_tmp)->cmd);
+	(*cmd_tmp)->cmd = ft_strdup((*cmd_tmp)->args[0]);
 	if (ft_check_cmd((*cmd_tmp)->cmd))
 			(*cmd_tmp)->in = -1;
 }
@@ -42,8 +44,6 @@ void	ft_expand_check(t_token	*tmp, t_cmd *cmd_tmp)
 	char	**ok;
 
 	i = -1;
-	if (tmp->type == CMD)
-		ft_cmd(tmp->value, &cmd_tmp);
 	if (tmp->flag && ft_strchr(tmp->value, ' '))
 	{
 		ok = ft_split(tmp->value, ' ');
@@ -51,8 +51,10 @@ void	ft_expand_check(t_token	*tmp, t_cmd *cmd_tmp)
 			cmd_tmp->args = ft_realloc(cmd_tmp->args, ok[i]);
 		ft_freetab(ok);
 	}
-	else
+	else if (ft_strlen(tmp->value))
 		cmd_tmp->args = ft_realloc(cmd_tmp->args, tmp->value);
+	if (cmd_tmp->args)
+		ft_cmd(&cmd_tmp);
 }
 
 void	ft_get_cmd(t_token **data, t_cmd **cmd)
