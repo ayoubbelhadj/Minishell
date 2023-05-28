@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_data_checker2.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abelhadj <abelhadj@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aoudija <aoudija@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 17:38:14 by abelhadj          #+#    #+#             */
-/*   Updated: 2023/05/13 19:02:45 by abelhadj         ###   ########.fr       */
+/*   Updated: 2023/05/22 08:17:32 by aoudija          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	ft_check_cmd(char *str)
 		{
 			(ft_putstr_fd("bashn't: ", 2), ft_putstr_fd(str, 2));
 			ft_putstr_fd(" :is a directory\n", 2);
-			return (g_stuct.exit_status = CMD_NOT_EXECUT, 1);
+			return (g_data.exit_status = CMD_NOT_EXECUT, 1);
 		}
 		else
 		{
@@ -47,7 +47,7 @@ int	ft_check_cmd(char *str)
 				ft_putstr_fd(" :is a directory\n", 2);
 				if (dr)
 					closedir(dr);
-				return (g_stuct.exit_status = CMD_NOT_EXECUT, 1);
+				return (g_data.exit_status = CMD_NOT_EXECUT, 1);
 			}
 		}
 	}

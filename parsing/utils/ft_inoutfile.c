@@ -6,7 +6,7 @@
 /*   By: abelhadj <abelhadj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 21:17:18 by abelhadj          #+#    #+#             */
-/*   Updated: 2023/05/22 15:28:16 by abelhadj         ###   ########.fr       */
+/*   Updated: 2023/05/28 19:38:40 by abelhadj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,11 @@ void	ft_get_infile(t_cmd **cmd, char *value, t_token *tmp)
 {
 	if (!ft_strcmp(value, "\b"))
 	{
+		g_data.exit_status = 1;
 		ft_putstr_fd("bashn't: ambiguous redirect\n", 2);
 		(*cmd)->in = -1;
 		(*cmd)->error = 0;
+		g_data.exit_status = ERROR;
 		tmp->err = 1;
 	}
 	if ((*cmd)->in != -1)
@@ -26,9 +28,11 @@ void	ft_get_infile(t_cmd **cmd, char *value, t_token *tmp)
 		(*cmd)->in = open(value, O_RDONLY);
 		if ((*cmd)->in == -1)
 		{
+			g_data.exit_status = 1;
 			ft_putstr_fd("bashn't: ", 2);
 			perror(value);
 			(*cmd)->error = 0;
+			g_data.exit_status = ERROR;
 			tmp->err = 1;
 		}
 	}
@@ -38,6 +42,7 @@ void	ft_get_outfile(t_cmd **cmd, char *value, t_token *tmp)
 {
 	if (!ft_strcmp(value, "\b"))
 	{
+		g_data.exit_status = 1;
 		ft_putstr_fd("bashn't: ambiguous redirect\n", 2);
 		(*cmd)->out = -1;
 		(*cmd)->error = 0;
@@ -48,6 +53,7 @@ void	ft_get_outfile(t_cmd **cmd, char *value, t_token *tmp)
 		(*cmd)->out = open(value, O_CREAT | O_TRUNC | O_RDWR, 0777);
 		if ((*cmd)->out == -1)
 		{
+			g_data.exit_status = 1;
 			ft_putstr_fd("bashn't: ", 2);
 			perror(value);
 			(*cmd)->error = 0;
@@ -60,6 +66,7 @@ void	ft_get_append(t_cmd **cmd, char *value, t_token *tmp)
 {
 	if (!ft_strcmp(value, "\b"))
 	{
+		g_data.exit_status = 1;
 		ft_putstr_fd("bashn't: ambiguous redirect\n", 2);
 		(*cmd)->out = -1;
 		(*cmd)->error = 0;
@@ -70,6 +77,7 @@ void	ft_get_append(t_cmd **cmd, char *value, t_token *tmp)
 		(*cmd)->out = open(value, O_CREAT | O_APPEND | O_RDWR, 0777);
 		if ((*cmd)->out == -1)
 		{
+			g_data.exit_status = 1;
 			ft_putstr_fd("bashn't: ", 2);
 			perror(value);
 			(*cmd)->error = 0;

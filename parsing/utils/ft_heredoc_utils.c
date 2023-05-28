@@ -6,7 +6,7 @@
 /*   By: abelhadj <abelhadj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 17:39:52 by abelhadj          #+#    #+#             */
-/*   Updated: 2023/05/13 17:43:38 by abelhadj         ###   ########.fr       */
+/*   Updated: 2023/05/28 19:10:33 by abelhadj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,9 @@ void	ft_heredocsig(int sig)
 {
 	if (sig == SIGINT)
 	{
-		g_stuct.sig = 1;
+		g_data.exit_status = 1;
+		g_data.sig = 1;
+		g_data.sigflag = 1;
 		rl_replace_line("", 0);
 		printf("\n");
 		close(0);
