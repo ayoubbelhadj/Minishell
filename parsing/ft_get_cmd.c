@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_get_cmd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abelhadj <abelhadj@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aoudija <aoudija@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 16:37:21 by abelhadj          #+#    #+#             */
-/*   Updated: 2023/05/13 18:44:02 by abelhadj         ###   ########.fr       */
+/*   Updated: 2023/05/25 17:21:30 by aoudija          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,32 @@ void	ft_cmdadd(t_cmd **cmd, t_cmd **new)
 	ft_init_cmd(*new);
 }
 
-void	ft_cmd(t_token	*tmp, t_cmd **cmd_tmp)
+void	ft_cmd(t_cmd **cmd_tmp)
 {
-	(*cmd_tmp)->cmd = ft_strdup(tmp->value);
+	if ((*cmd_tmp)->cmd)
+		free((*cmd_tmp)->cmd);
+	(*cmd_tmp)->cmd = ft_strdup((*cmd_tmp)->args[0]);
 	if (ft_check_cmd((*cmd_tmp)->cmd))
 			(*cmd_tmp)->in = -1;
+}
+
+void	ft_expand_check(t_token	*tmp, t_cmd *cmd_tmp)
+{
+	int		i;
+	char	**ok;
+
+	i = -1;
+	if (tmp->flag && ft_strchr(tmp->value, ' '))
+	{
+		ok = ft_split(tmp->value, ' ');
+		while (ok[++i])
+			cmd_tmp->args = ft_realloc(cmd_tmp->args, ok[i]);
+		ft_freetab(ok);
+	}
+	else if (ft_strlen(tmp->value))
+		cmd_tmp->args = ft_realloc(cmd_tmp->args, tmp->value);
+	if (cmd_tmp->args)
+		ft_cmd(&cmd_tmp);
 }
 
 void	ft_get_cmd(t_token **data, t_cmd **cmd)
@@ -49,12 +70,10 @@ void	ft_get_cmd(t_token **data, t_cmd **cmd)
 	while (tmp)
 	{
 		if (tmp->type == CMD || tmp->type == ARG)
-			cmd_tmp->args = ft_realloc(cmd_tmp->args, tmp->value);
+			ft_expand_check(tmp, cmd_tmp);
 		else if (tmp->type == APPEND || tmp->type == HERDOC
 			|| tmp->type == INFILE || tmp->type == OUTFILE)
 			ft_inoutfile(tmp, &cmd_tmp);
-		if (tmp->type == CMD)
-			ft_cmd(tmp, &cmd_tmp);
 		if ((tmp->next && tmp->next->type == PIPE) || tmp->next == NULL)
 			ft_cmdadd(cmd, &cmd_tmp);
 		tmp = tmp->next;

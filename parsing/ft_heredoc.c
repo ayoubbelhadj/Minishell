@@ -6,7 +6,7 @@
 /*   By: abelhadj <abelhadj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 17:22:47 by abelhadj          #+#    #+#             */
-/*   Updated: 2023/05/13 17:40:12 by abelhadj         ###   ########.fr       */
+/*   Updated: 2023/05/30 17:28:08 by abelhadj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,10 @@
 
 int	ft_heredocwrite(char *line, char *del, int fd, char *delimiter)
 {
+	signal(SIGINT, ft_heredocsig);
 	line = readline("> ");
 	if (!line)
-		return (free(del), free(line), 1);
+		return (g_data.sigflag = 1, free(del), free(line), 1);
 	if (line[0])
 	{
 		if (!ft_strcmp(line, del))
@@ -26,6 +27,8 @@ int	ft_heredocwrite(char *line, char *del, int fd, char *delimiter)
 		ft_putstr_fd(line, fd);
 		ft_putstr_fd("\n", fd);
 	}
+	else if (ft_strlen(del) == 0)
+		return (free(del), free(line), 1);
 	free(line);
 	return (0);
 }
@@ -42,10 +45,8 @@ char	*ft_heredocfile(char *delimiter)
 	line = NULL;
 	fd = open(name, O_TRUNC | O_CREAT | O_RDWR, 0777);
 	while (1 && fd != -1)
-	{
 		if (ft_heredocwrite(line, del, fd, delimiter))
 			break ;
-	}
 	close(fd);
 	return (name);
 }
@@ -56,8 +57,7 @@ int	ft_heredoc(t_token **data)
 	char	*filename;
 
 	tmp = *data;
-	signal(SIGINT, ft_heredocsig);
-	while (tmp && !g_stuct.sig)
+	while (tmp && !g_data.sig)
 	{	
 		if (tmp->type == HERDOC)
 		{
@@ -69,7 +69,7 @@ int	ft_heredoc(t_token **data)
 		}
 		tmp = tmp->next;
 	}
-	if (g_stuct.sig)
+	if (g_data.sig)
 		return (1);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: abelhadj <abelhadj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 12:15:49 by abelhadj          #+#    #+#             */
-/*   Updated: 2023/05/13 18:54:12 by abelhadj         ###   ########.fr       */
+/*   Updated: 2023/05/30 15:35:21 by abelhadj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	ft_checkquote(char *line)
 			c = "\"\n";
 		else
 			c = "'\n";
-		g_stuct.exit_status = SYNTAX_ERROR;
+		g_data.exit_status = SYNTAX_ERROR;
 		ft_putstr_fd("bashn't: syntax error near unexpected token ", 2);
 		ft_putstr_fd(c, 2);
 		return (1);
@@ -38,7 +38,7 @@ int	ft_start(char *line, t_token *data, t_cmd **cmd)
 		return (0);
 	ft_get_cmd(&data, cmd);
 	ft_dataclear(&data);
-	if (g_stuct.sig == 1)
+	if (g_data.sig == 1)
 		return (0);
 	return (1);
 }

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abelhadj <abelhadj@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aoudija <aoudija@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/14 15:43:30 by abelhadj          #+#    #+#             */
-/*   Updated: 2023/04/20 22:28:29 by abelhadj         ###   ########.fr       */
+/*   Updated: 2023/04/21 09:15:05 by aoudija          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static void	*ft_free(char **t, int i)
+static void	*ft_fre(char **t, int i)
 {
 	while (i--)
 		free(t[i]);
@@ -74,7 +74,7 @@ static char	**ft_fill(char **t, char *s, char c)
 		{
 			t[j] = malloc(sizeof(char) * (ft_count2((char *)s + i, c) + 1));
 			if (!t[j])
-				return (ft_free(t, j));
+				return (ft_fre(t, j));
 			while (s[i] && s[i] != c)
 				t[j][k++] = s[i++];
 			t[j++][k] = 0;

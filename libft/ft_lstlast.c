@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstlast.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abelhadj <abelhadj@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aoudija <aoudija@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 12:58:18 by abelhadj          #+#    #+#             */
-/*   Updated: 2023/04/27 14:59:20 by abelhadj         ###   ########.fr       */
+/*   Updated: 2023/04/27 14:26:08 by aoudija          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ t_list	*ft_lstlast(t_list *lst)
 	if (!lst)
 		return (NULL);
 	temp = lst;
-	while (temp -> next != NULL)
-	{	
-		temp = temp -> next;
+	while (temp->next)
+	{
+		temp = temp->next;
 	}
 	return (temp);
 }

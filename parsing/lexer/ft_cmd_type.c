@@ -6,7 +6,7 @@
 /*   By: abelhadj <abelhadj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 12:27:55 by abelhadj          #+#    #+#             */
-/*   Updated: 2023/05/09 16:46:29 by abelhadj         ###   ########.fr       */
+/*   Updated: 2023/05/26 20:18:16 by abelhadj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,13 @@ void	ft_cmd_type(t_token **data)
 			|| tmp->type == INFILE)
 			tmp->value = ft_expand_name(tmp->value);
 		else if (tmp->type != DELIMITER)
+		{
+			if (ft_strchr(tmp->value, '$') && ft_isquotein(tmp->value))
+				tmp->flag = 1;
+			else
+				tmp->flag = 0;
 			tmp->value = ft_expand(tmp->value);
+		}
 		tmp = tmp->next;
 	}
 }
